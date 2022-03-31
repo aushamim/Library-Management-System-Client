@@ -1,7 +1,13 @@
+import { BrowserRouter } from "react-router-dom";
 import "./App.css";
+import Layout from "./Pages/Layout";
 
 function App() {
-  return <div className="kool-bg h-screen"></div>;
+  return (
+    <BrowserRouter>
+      <Layout></Layout>
+    </BrowserRouter>
+  );
 }
 
 export default App;
