@@ -1,12 +1,17 @@
-import { BrowserRouter } from "react-router-dom";
 import "./App.css";
-import Layout from "./Pages/Layout";
+import Navigation from "./Components/Navigation/Navigation";
+import Home from "./Pages/Home/Home";
 
 function App() {
   return (
-    <BrowserRouter>
-      <Layout></Layout>
-    </BrowserRouter>
+    <div className="bg-white p-3 h-screen flex">
+      <div>
+        <Navigation></Navigation>
+      </div>
+      <div className="bg-[#f5f6fb] p-10 rounded-lg w-full">
+        <Home></Home>
+      </div>
+    </div>
   );
 }
 
