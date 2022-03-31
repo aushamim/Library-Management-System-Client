@@ -1,0 +1,9 @@
+.kool-bg {
+  background: rgb(255, 255, 255);
+  background: linear-gradient(
+    180deg,
+    rgba(255, 255, 255, 1) 0%,
+    rgba(223, 247, 247, 1) 50%,
+    rgba(204, 251, 241, 1) 100%
+  );
+}
