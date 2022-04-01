@@ -63,8 +63,8 @@ const Home = () => {
 
       <div>
         <div className="grid grid-cols-4">
-          <div className="col-span-3">
-            <p>Books Heading</p>
+          <div className="col-span-3 flex items-center">
+            <p className="font-semibold text-2xl text-gray-500">• All Books</p>
           </div>
           <div className="flex">
             <input
@@ -93,7 +93,8 @@ const Home = () => {
           </div>
         </div>
 
-        <div>
+        <div className="mt-10 grid grid-cols-1 lg:grid-cols-4 gap-5">
+          <Books></Books>
           <Books></Books>
           <Books></Books>
           <Books></Books>
