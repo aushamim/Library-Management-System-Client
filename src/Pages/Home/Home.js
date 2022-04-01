@@ -1,4 +1,5 @@
 import React from "react";
+import Books from "../../Components/Books/Books";
 import avatar from "./../../Media/default-avatar.png";
 
 const Home = () => {
@@ -60,7 +61,44 @@ const Home = () => {
         </div>
       </div>
 
-      <div>something...</div>
+      <div>
+        <div className="grid grid-cols-4">
+          <div className="col-span-3">
+            <p>Books Heading</p>
+          </div>
+          <div className="flex">
+            <input
+              className="w-full p-3 rounded-md font-semibold outline-blue-300 text-gray-500"
+              type="text"
+              placeholder="Search for a book"
+              autoComplete="off"
+            />
+            <button className="p-3 group">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                class="icon icon-tabler icon-tabler-search fill-transparent group-hover:fill-blue-200 group-hover:stroke-blue-800"
+                width="24"
+                height="24"
+                viewBox="0 0 24 24"
+                stroke-width="1.5"
+                stroke="#6b7280"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              >
+                <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                <circle cx="10" cy="10" r="7" />
+                <line x1="21" y1="21" x2="15" y2="15" />
+              </svg>
+            </button>
+          </div>
+        </div>
+
+        <div>
+          <Books></Books>
+          <Books></Books>
+          <Books></Books>
+        </div>
+      </div>
     </div>
   );
 };
