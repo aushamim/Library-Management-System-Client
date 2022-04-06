@@ -7,8 +7,13 @@ const Home = () => {
     <div>
       <div className="grid grid-cols-8">
         <div className="mb-14 col-span-7">
-          <p className="text-4xl font-semibold text-gray-700">Hi,</p>
-          <p className="text-4xl">Shamim 👋</p>
+          <p className="text-4xl">
+            Hi, <span className="font-semibold text-gray-700">Shamim</span> 👋
+          </p>
+          <p className="text-4xl mt-2">
+            Welcome to{" "}
+            <span className="font-semibold text-gray-700">The Library</span>
+          </p>
         </div>
 
         <div>
@@ -93,7 +98,19 @@ const Home = () => {
           </div>
         </div>
 
-        <div className="mt-10 grid grid-cols-1 lg:grid-cols-4 gap-5">
+        <div className="mt-10 grid grid-cols-1 lg:grid-cols-2 2xl:grid-cols-4 gap-5 h-[75vh] lg:h-[59vh] 2xl:h-[69vh] overflow-y-scroll">
+          <Books></Books>
+          <Books></Books>
+          <Books></Books>
+          <Books></Books>
+          <Books></Books>
+          <Books></Books>
+          <Books></Books>
+          <Books></Books>
+          <Books></Books>
+          <Books></Books>
+          <Books></Books>
+          <Books></Books>
           <Books></Books>
           <Books></Books>
           <Books></Books>
