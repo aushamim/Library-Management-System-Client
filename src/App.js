@@ -4,6 +4,7 @@ import Navigation from "./Components/Navigation/Navigation";
 import Home from "./Pages/Home/Home";
 import Login from "./Pages/Login/Login";
 import Cart from "./Pages/Cart/Cart";
+import Profile from "./Pages/Profile/Profile";
 
 function App() {
   return (
@@ -16,6 +17,7 @@ function App() {
           <Route path="/" element={<Home></Home>} />
           <Route path="/login" element={<Login></Login>} />
           <Route path="/cart" element={<Cart></Cart>} />
+          <Route path="/user" element={<Profile></Profile>} />
         </Routes>
       </div>
     </div>
