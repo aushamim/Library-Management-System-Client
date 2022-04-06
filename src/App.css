@@ -11,3 +11,7 @@
 .nav-tooltip {
   @apply font-semibold text-gray-500 bg-white absolute left-24 p-2 w-max rounded-md z-10 scale-0 group-hover:scale-100 transition origin-left shadow-sm;
 }
+
+.horizontal-scroll-fix {
+  display: -webkit-box;
+}
