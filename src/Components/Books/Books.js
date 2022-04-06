@@ -1,6 +1,8 @@
 import React from "react";
 
 const Books = () => {
+  const pathArray = window.location.pathname.split("/");
+
   return (
     <div className="bg-white rounded-md shadow flex h-max">
       <div className="p-5 w-10/12">
@@ -24,29 +26,63 @@ const Books = () => {
         </div>
         <hr className="my-3" />
         <div className="grid grid-cols-2 gap-5">
-          <button className="bg-orange-100 hover:bg-orange-300 transition ease-in-out duration-500 shadow-sm p-2 rounded-md flex items-center justify-center">
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              className="icon icon-tabler icon-tabler-bookmark"
-              width="24"
-              height="24"
-              viewBox="0 0 27 27"
-              strokeWidth="1.5"
-              stroke="#6b7280"
-              fill="none"
-              strokeLinecap="round"
-              strokeLinejoin="round"
+          {pathArray[1] === "" ? (
+            // WishList Button
+            <button className="bg-orange-100 hover:bg-orange-300 transition ease-in-out duration-500 shadow-sm p-2 rounded-md flex items-center justify-center">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                className="icon icon-tabler icon-tabler-bookmark"
+                width="24"
+                height="24"
+                viewBox="0 0 27 27"
+                strokeWidth="1.5"
+                stroke="#6b7280"
+                fill="none"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+              >
+                <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                <path d="M9 4h6a2 2 0 0 1 2 2v14l-5 -3l-5 3v-14a2 2 0 0 1 2 -2" />
+                <path d="M20 24h8m-5 -3v6" />
+              </svg>
+              <span className="font-semibold text-xs ml-2">
+                Add to Wishlist
+              </span>
+            </button>
+          ) : (
+            // Remove Button
+            <button
+              className="bg-red-100 hover:bg-red-300 transition ease-in-out duration-500 shadow-sm p-2 rounded-md flex items-center justify-center"
+              onClick={() => {
+                pathArray[1] !== "" ? console.log(pathArray[1]) : console.log();
+              }}
             >
-              <path stroke="none" d="M0 0h24v24H0z" fill="none" />
-              <path d="M9 4h6a2 2 0 0 1 2 2v14l-5 -3l-5 3v-14a2 2 0 0 1 2 -2" />
-              <path d="M20 24h8m-5 -3v6" />
-            </svg>
-            <span className="font-semibold text-xs ml-2">Add to Wishlist</span>
-          </button>
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                className="icon icon-tabler icon-tabler-trash"
+                width="24"
+                height="24"
+                viewBox="0 0 24 24"
+                strokeWidth="1.5"
+                stroke="#6b7280"
+                fill="none"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+              >
+                <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                <line x1="4" y1="7" x2="20" y2="7" />
+                <line x1="10" y1="11" x2="10" y2="17" />
+                <line x1="14" y1="11" x2="14" y2="17" />
+                <path d="M5 7l1 12a2 2 0 0 0 2 2h8a2 2 0 0 0 2 -2l1 -12" />
+                <path d="M9 7v-3a1 1 0 0 1 1 -1h4a1 1 0 0 1 1 1v3" />
+              </svg>
+              <span className="font-semibold text-xs ml-2">Remove</span>
+            </button>
+          )}
           <button className="bg-emerald-100 hover:bg-emerald-300 transition ease-in-out duration-500 shadow-sm p-2 rounded-md font-semibold text-xs flex items-center justify-center">
             <svg
               xmlns="http://www.w3.org/2000/svg"
-              class="icon icon-tabler icon-tabler-shopping-cart-plus"
+              className="icon icon-tabler icon-tabler-shopping-cart-plus"
               width="24"
               height="24"
               viewBox="0 0 24 24"
