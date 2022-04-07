@@ -25,7 +25,7 @@ const Profile = () => {
           </div>
         </div>
         <div className="bg-white rounded-md p-5 my-5">
-          <div className="grid grid-cols-5">
+          <div className="grid grid-cols-5 items-center">
             <p className="font-semibold text-2xl col-span-4">Shamim</p>
             <div className="flex justify-end">
               <button
