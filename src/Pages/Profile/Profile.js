@@ -25,7 +25,35 @@ const Profile = () => {
           </div>
         </div>
         <div className="bg-white rounded-md p-5 my-5">
-          <span className="font-semibold text-2xl">Shamim</span>
+          <div className="grid grid-cols-5">
+            <p className="font-semibold text-2xl col-span-4">Shamim</p>
+            <div className="flex justify-end">
+              <button
+                className="p-2 hover:bg-blue-100 transition ease-in-out duration-500 rounded-full group"
+                onClick={() => {
+                  console.log("Add Friend");
+                }}
+              >
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  className="icon icon-tabler icon-tabler-user-plus group-hover:stroke-blue-500"
+                  width="24"
+                  height="24"
+                  viewBox="0 0 24 24"
+                  strokeWidth="1.5"
+                  stroke="#6b7280"
+                  fill="none"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                >
+                  <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                  <circle cx="9" cy="7" r="4" />
+                  <path d="M3 21v-2a4 4 0 0 1 4 -4h4a4 4 0 0 1 4 4v2" />
+                  <path d="M16 11h6m-3 -3v6" />
+                </svg>
+              </button>
+            </div>
+          </div>
           <hr className="my-3" />
           <div className="grid grid-cols-3">
             <p className="font-semibold text-gray-500 my-1">Position</p>
