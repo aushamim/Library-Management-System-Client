@@ -8,7 +8,7 @@ import Books from "../../Components/Books/Books";
 
 const Profile = () => {
   return (
-    <div className="grid grid-cols-1 xl:grid-cols-4 xl:gap-10 mb-5 h-[93vh] overflow-y-scroll">
+    <div className="grid grid-cols-1 xl:grid-cols-4 xl:gap-10 mb-5 h-[90vh] 2xl:h-[93vh] overflow-y-scroll">
       <div>
         <div className="bg-white rounded-md p-5 relative">
           <div className="flex justify-center">

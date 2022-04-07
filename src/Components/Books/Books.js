@@ -25,7 +25,13 @@ const Books = () => {
           </p>
         </div>
         <hr className="my-3" />
-        <div className="grid grid-cols-2 gap-5">
+        <div
+          className={
+            pathArray[1] === "cart"
+              ? "grid grid-cols-1 gap-5"
+              : "grid grid-cols-2 gap-5"
+          }
+        >
           {pathArray[1] === "" ? (
             // WishList Button
             <button className="bg-orange-100 hover:bg-orange-300 transition ease-in-out duration-500 shadow-sm p-2 rounded-md flex items-center justify-center">
@@ -79,28 +85,32 @@ const Books = () => {
               <span className="font-semibold text-xs ml-2">Remove</span>
             </button>
           )}
-          <button className="bg-emerald-100 hover:bg-emerald-300 transition ease-in-out duration-500 shadow-sm p-2 rounded-md font-semibold text-xs flex items-center justify-center">
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              className="icon icon-tabler icon-tabler-shopping-cart-plus"
-              width="24"
-              height="24"
-              viewBox="0 0 24 24"
-              strokeWidth="1.5"
-              stroke="#6b7280"
-              fill="none"
-              strokeLinecap="round"
-              strokeLinejoin="round"
-            >
-              <path stroke="none" d="M0 0h24v24H0z" fill="none" />
-              <circle cx="6" cy="19" r="2" />
-              <circle cx="17" cy="19" r="2" />
-              <path d="M17 17h-11v-14h-2" />
-              <path d="M6 5l6.005 .429m7.138 6.573l-.143 .998h-13" />
-              <path d="M15 6h6m-3 -3v6" />
-            </svg>
-            <span className="font-semibold text-xs ml-2">Add to Cart</span>
-          </button>
+          {pathArray[1] !== "cart" ? (
+            <button className="bg-emerald-100 hover:bg-emerald-300 transition ease-in-out duration-500 shadow-sm p-2 rounded-md font-semibold text-xs flex items-center justify-center">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                className="icon icon-tabler icon-tabler-shopping-cart-plus"
+                width="24"
+                height="24"
+                viewBox="0 0 24 24"
+                strokeWidth="1.5"
+                stroke="#6b7280"
+                fill="none"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+              >
+                <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                <circle cx="6" cy="19" r="2" />
+                <circle cx="17" cy="19" r="2" />
+                <path d="M17 17h-11v-14h-2" />
+                <path d="M6 5l6.005 .429m7.138 6.573l-.143 .998h-13" />
+                <path d="M15 6h6m-3 -3v6" />
+              </svg>
+              <span className="font-semibold text-xs ml-2">Add to Cart</span>
+            </button>
+          ) : (
+            ""
+          )}
         </div>
       </div>
       <div className="flex justify-end">
