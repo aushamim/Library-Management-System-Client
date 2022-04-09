@@ -31,13 +31,13 @@ const Forum = () => {
             className="w-full p-3 rounded-md outline-none"
             placeholder="Write Something"
           ></textarea>
-          {/* <p className="text-2xl font-semibold text-gray-500 text-center py-16">
-          Please{" "}
-          <Link to="/login" className="text-blue-500">
-            Log In
-          </Link>{" "}
-          to post.
-        </p> */}
+          <p className="text-2xl font-semibold text-gray-500 text-center py-16">
+            Please{" "}
+            <Link to="/login" className="text-blue-500">
+              Log In
+            </Link>{" "}
+            to post.
+          </p>
         </div>
         <div className="grid grid-cols-2 gap-3 mt-3">
           {/* Clear */}

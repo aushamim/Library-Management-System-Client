@@ -1,10 +1,13 @@
-import React from "react";
+import React, { useState } from "react";
+import Reply from "../Reply/Reply";
 import avatar from "./../../Media/default-avatar.png";
 
 const Thread = () => {
+  const [reply, setReply] = useState(false);
+
   return (
     <div className="mb-10">
-      <div className="col-span-3 bg-white shadow-sm rounded-l-3xl rounded-r-md flex">
+      <div className="bg-white shadow-sm rounded-l-3xl rounded-r-md flex">
         <div className="w-16 border-4 border-[#f5f6fb] rounded-full mr-3">
           <img src={avatar} alt="avatar" className="w-full" />
         </div>
@@ -46,7 +49,13 @@ const Thread = () => {
           dolorem vitae magni praesentium.
         </div>
         <div className="flex justify-end p-1">
-          <button className="flex items-center mr-2">
+          {/* Reply */}
+          <button
+            className="flex items-center mr-2"
+            onClick={() => {
+              reply === false ? setReply(true) : setReply(false);
+            }}
+          >
             <svg
               xmlns="http://www.w3.org/2000/svg"
               className="stroke-blue-500 fill-blue-200"
@@ -65,6 +74,7 @@ const Thread = () => {
             </svg>
             <p className="ml-1 text-xs font-semibold text-blue-500">0</p>
           </button>
+          {/* React */}
           <button className="flex items-center mr-2">
             <svg
               xmlns="http://www.w3.org/2000/svg"
@@ -85,6 +95,14 @@ const Thread = () => {
           </button>
         </div>
       </div>
+      {reply ? (
+        <div className="mt-2 mx-3">
+          <Reply></Reply>
+          <p className="text-center">No reply yet ... U_U</p>
+        </div>
+      ) : (
+        ""
+      )}
     </div>
   );
 };
