@@ -42,7 +42,7 @@ const Navigation = () => {
       </Link>
 
       {/* Profile */}
-      <Link to="/user/">
+      <Link to="/user">
         <div className="flex flex-col justify-center items-center my-5 p-2 group relative">
           <svg
             xmlns="http://www.w3.org/2000/svg"
@@ -65,7 +65,7 @@ const Navigation = () => {
       </Link>
 
       {/* Forum */}
-      <Link to="/users">
+      <Link to="/forum">
         <div className="flex flex-col justify-center items-center my-5 p-2 group relative">
           <svg
             xmlns="http://www.w3.org/2000/svg"
@@ -87,7 +87,7 @@ const Navigation = () => {
         </div>
       </Link>
 
-      {/* Forum */}
+      {/* Cart */}
       <Link to="/cart">
         <div className="flex flex-col justify-center items-center my-5 p-2 group relative">
           <svg
@@ -186,7 +186,11 @@ const Navigation = () => {
       </Link>
 
       {/* Logout */}
-      <Link to="/add">
+      <button
+        onClick={() => {
+          console.log("Log Out");
+        }}
+      >
         <div className="flex flex-col justify-center items-center my-5 p-2 group relative">
           <svg
             xmlns="http://www.w3.org/2000/svg"
@@ -206,7 +210,7 @@ const Navigation = () => {
           </svg>
           <span className="nav-tooltip">Log Out</span>
         </div>
-      </Link>
+      </button>
     </div>
   );
 };
