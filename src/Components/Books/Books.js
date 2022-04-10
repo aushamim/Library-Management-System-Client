@@ -1,33 +1,43 @@
 import React from "react";
+import defaultCover from "./../../Media/default-cover.jpg";
 
-const Books = () => {
+// const Books = ({ title, author, date, publisher, price, cover }) => {
+const Books = ({
+  title = "Sword Art Online - Novel 01",
+  author = "Reki Kawahara",
+  date = "2015-03-09",
+  publisher = "Yen Press",
+  price = 100,
+  cover = "http://books.google.com/books/content?id=5UO9oAEACAAJ&printsec=frontcover&img=1&zoom=1&source=gbs_api",
+}) => {
   const pathArray = window.location.pathname.split("/");
 
   return (
     <div className="bg-white rounded-md shadow flex h-max">
       <div className="p-5 w-10/12">
         <div>
-          <p className="font-semibold mb-2">
-            Database Management System (DBMS)A Practical Approach
+          <p className="font-semibold mb-2">{title}</p>
+          <p className="text-xs mb-1 font-semibold">
+            <span className="text-gray-400">Author: </span>
+            {author}
           </p>
           <p className="text-xs mb-1 font-semibold">
-            <span className="text-gray-400">Author: </span>Rajiv Chopra
+            <span className="text-gray-400">Publish Date: </span>
+            {date}
           </p>
           <p className="text-xs mb-1 font-semibold">
-            <span className="text-gray-400">Publish Date: </span>2010-01-01
+            <span className="text-gray-400">Publisher: </span>
+            {publisher}
           </p>
           <p className="text-xs mb-1 font-semibold">
-            <span className="text-gray-400">Publisher: </span>S. Chand
-            Publishing
-          </p>
-          <p className="text-xs mb-1 font-semibold">
-            <span className="text-gray-400">Price: </span>100$
+            <span className="text-gray-400">Price: </span>
+            {price}$
           </p>
         </div>
         <hr className="my-3" />
         <div
           className={
-            pathArray[1] === "cart" || "add"
+            pathArray[1] === "cart" || pathArray[1] === "add"
               ? "grid grid-cols-1 gap-5"
               : "grid grid-cols-2 gap-5"
           }
@@ -56,7 +66,13 @@ const Books = () => {
               </span>
             </button>
           ) : pathArray[1] === "add" ? (
-            <button className="bg-emerald-100 hover:bg-emerald-300 transition ease-in-out duration-500 shadow-sm p-2 rounded-md font-semibold text-xs flex items-center justify-center">
+            // Add Book Button
+            <button
+              className="bg-emerald-100 hover:bg-emerald-300 transition ease-in-out duration-500 shadow-sm p-2 rounded-md font-semibold text-xs flex items-center justify-center"
+              onClick={() => {
+                console.log(title, author, date, publisher, price, cover);
+              }}
+            >
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 className="icon icon-tabler icon-tabler-shopping-cart-plus"
@@ -140,8 +156,8 @@ const Books = () => {
       </div>
       <div className="flex justify-end">
         <img
-          src="http://books.google.com/books/content?id=FTUJNA4lLdAC&printsec=frontcover&img=1&zoom=5&edge=curl&source=gbs_api"
-          alt=""
+          src={cover === "defaultCover" ? defaultCover : cover}
+          alt={title}
           className="max-h-full rounded-r-md shadow"
         />
       </div>
