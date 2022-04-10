@@ -6,6 +6,7 @@ import Login from "./Pages/Login/Login";
 import Cart from "./Pages/Cart/Cart";
 import Profile from "./Pages/Profile/Profile";
 import Forum from "./Pages/Forum/Forum";
+import AddBooks from "./Pages/AddBooks/AddBooks";
 
 function App() {
   return (
@@ -20,6 +21,7 @@ function App() {
           <Route path="/cart" element={<Cart></Cart>} />
           <Route path="/user" element={<Profile></Profile>} />
           <Route path="/forum" element={<Forum></Forum>} />
+          <Route path="/add" element={<AddBooks></AddBooks>} />
         </Routes>
       </div>
     </div>

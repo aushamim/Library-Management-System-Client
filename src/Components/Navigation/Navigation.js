@@ -141,7 +141,7 @@ const Navigation = () => {
       </Link>
 
       {/* Admin Panel */}
-      <Link to="/add">
+      <Link to="/admin">
         <div className="flex flex-col justify-center items-center my-5 p-2 group relative">
           <svg
             xmlns="http://www.w3.org/2000/svg"

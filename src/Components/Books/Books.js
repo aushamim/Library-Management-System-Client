@@ -27,7 +27,7 @@ const Books = () => {
         <hr className="my-3" />
         <div
           className={
-            pathArray[1] === "cart"
+            pathArray[1] === "cart" || "add"
               ? "grid grid-cols-1 gap-5"
               : "grid grid-cols-2 gap-5"
           }
@@ -54,6 +54,31 @@ const Books = () => {
               <span className="font-semibold text-xs ml-2">
                 Add to Wishlist
               </span>
+            </button>
+          ) : pathArray[1] === "add" ? (
+            <button className="bg-emerald-100 hover:bg-emerald-300 transition ease-in-out duration-500 shadow-sm p-2 rounded-md font-semibold text-xs flex items-center justify-center">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                className="icon icon-tabler icon-tabler-shopping-cart-plus"
+                width="24"
+                height="24"
+                viewBox="0 0 30 30"
+                strokeWidth="1.5"
+                stroke="#6b7280"
+                fill="none"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+              >
+                <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                <path d="M3 19a9 9 0 0 1 9 0a9 9 0 0 1 9 0" />
+                <path d="M3 6a9 9 0 0 1 9 0a9 9 0 0 1 9 0" />
+                <line x1="3" y1="6" x2="3" y2="19" />
+                <line x1="12" y1="6" x2="12" y2="19" />
+                <line x1="21" y1="6" x2="21" y2="19" />
+                <line x1="27" y1="18" x2="27" y2="22" />
+                <line x1="25" y1="20" x2="30" y2="20" />
+              </svg>
+              <span className="font-semibold text-xs ml-2">Add Book</span>
             </button>
           ) : (
             // Remove Button
@@ -85,7 +110,7 @@ const Books = () => {
               <span className="font-semibold text-xs ml-2">Remove</span>
             </button>
           )}
-          {pathArray[1] !== "cart" ? (
+          {pathArray[1] !== "add" && pathArray[1] !== "cart" ? (
             <button className="bg-emerald-100 hover:bg-emerald-300 transition ease-in-out duration-500 shadow-sm p-2 rounded-md font-semibold text-xs flex items-center justify-center">
               <svg
                 xmlns="http://www.w3.org/2000/svg"
