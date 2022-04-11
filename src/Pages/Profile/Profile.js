@@ -5,8 +5,11 @@ import wish from "./../../Media/stars.png";
 import coins from "./../../Media/coins.png";
 import finished from "./../../Media/bookmark.png";
 import Books from "../../Components/Books/Books";
+import useAuth from "../../Hooks/useAuth";
 
 const Profile = () => {
+  const { user } = useAuth();
+
   return (
     <div className="grid grid-cols-1 xl:grid-cols-4 xl:gap-10 mb-5 h-[90vh] 2xl:h-[93vh] overflow-y-scroll">
       <div>
@@ -15,7 +18,11 @@ const Profile = () => {
             <div className="flex justify-center absolute">
               <div className="border-2 border-blue-500 rounded-full w-32">
                 <div className="rounded-full p-1">
-                  <img src={avatar} alt="" className="w-full" />
+                  <img
+                    src={user.photoURL ? user.photoURL : avatar}
+                    alt={user.displayName}
+                    className="w-full rounded-full"
+                  />
                 </div>
               </div>
             </div>
