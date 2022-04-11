@@ -1,4 +1,3 @@
-import userEvent from "@testing-library/user-event";
 import React from "react";
 import { Link } from "react-router-dom";
 import useAuth from "../../Hooks/useAuth";
@@ -165,51 +164,57 @@ const Navigation = () => {
           <span className="nav-tooltip">Admin Panel</span>
         </div>
       </Link>
-
-      {/* Log-in */}
-      <Link to="/login">
-        <div className="flex flex-col justify-center items-center my-5 p-2 group relative">
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            className="icon icon-tabler icon-tabler-login"
-            width="32"
-            height="32"
-            viewBox="0 0 24 24"
-            strokeWidth="1.5"
-            stroke="#6b7280"
-            fill="none"
-            strokeLinecap="round"
-            strokeLinejoin="round"
-          >
-            <path stroke="none" d="M0 0h24v24H0z" fill="none" />
-            <path d="M14 8v-2a2 2 0 0 0 -2 -2h-7a2 2 0 0 0 -2 2v12a2 2 0 0 0 2 2h7a2 2 0 0 0 2 -2v-2" />
-            <path d="M20 12h-13l3 -3m0 6l-3 -3" />
-          </svg>
-          <span className="nav-tooltip">Log In</span>
-        </div>
-      </Link>
-      {/* Logout */}
-      <button onClick={logout}>
-        <div className="flex flex-col justify-center items-center my-5 p-2 group relative">
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            className="icon icon-tabler icon-tabler-power"
-            width="32"
-            height="32"
-            viewBox="0 0 24 24"
-            strokeWidth="1.5"
-            stroke="#6b7280"
-            fill="none"
-            strokeLinecap="round"
-            strokeLinejoin="round"
-          >
-            <path stroke="none" d="M0 0h24v24H0z" fill="none" />
-            <path d="M7 6a7.75 7.75 0 1 0 10 0" />
-            <line x1="12" y1="4" x2="12" y2="12" />
-          </svg>
-          <span className="nav-tooltip">Log Out</span>
-        </div>
-      </button>
+      {user.email ? (
+        <>
+          {/* Logout */}
+          <button onClick={logout}>
+            <div className="flex flex-col justify-center items-center my-5 p-2 group relative">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                className="icon icon-tabler icon-tabler-power"
+                width="32"
+                height="32"
+                viewBox="0 0 24 24"
+                strokeWidth="1.5"
+                stroke="#6b7280"
+                fill="none"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+              >
+                <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                <path d="M7 6a7.75 7.75 0 1 0 10 0" />
+                <line x1="12" y1="4" x2="12" y2="12" />
+              </svg>
+              <span className="nav-tooltip">Log Out</span>
+            </div>
+          </button>
+        </>
+      ) : (
+        <>
+          {/* Log-in */}
+          <Link to="/login">
+            <div className="flex flex-col justify-center items-center my-5 p-2 group relative">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                className="icon icon-tabler icon-tabler-login"
+                width="32"
+                height="32"
+                viewBox="0 0 24 24"
+                strokeWidth="1.5"
+                stroke="#6b7280"
+                fill="none"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+              >
+                <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                <path d="M14 8v-2a2 2 0 0 0 -2 -2h-7a2 2 0 0 0 -2 2v12a2 2 0 0 0 2 2h7a2 2 0 0 0 2 -2v-2" />
+                <path d="M20 12h-13l3 -3m0 6l-3 -3" />
+              </svg>
+              <span className="nav-tooltip">Log In</span>
+            </div>
+          </Link>
+        </>
+      )}
     </div>
   );
 };
