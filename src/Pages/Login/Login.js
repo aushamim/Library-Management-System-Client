@@ -1,20 +1,44 @@
 import React, { useState } from "react";
+import { useLocation, useNavigate } from "react-router-dom";
+import useAuth from "../../Hooks/useAuth";
 import googleIcon from "./../../Media/google.png";
 
-const callLogin = () => {
-  const email = document.getElementById("email").value;
-  const password = document.getElementById("password").value;
-  console.log(email, password);
-};
-const callRegister = () => {
-  const name = document.getElementById("name").value;
-  const email = document.getElementById("email").value;
-  const password = document.getElementById("password").value;
-  console.log(name, email, password);
-};
-
 const Login = () => {
+  // set the login and signUp state
   const [isNew, setIsNew] = useState(false);
+
+  const {
+    user,
+    authError,
+    loginUser,
+    registerUser,
+    isLoading,
+    signInWithGoogle,
+  } = useAuth();
+
+  const navigate = useNavigate();
+  const location = useLocation();
+
+  // get login info
+  const callLogin = () => {
+    const email = document.getElementById("email").value;
+    const password = document.getElementById("password").value;
+    loginUser(email, password, location, navigate);
+  };
+
+  // get register user info
+  const callRegister = () => {
+    const name = document.getElementById("name").value;
+    const email = document.getElementById("email").value;
+    const password = document.getElementById("password").value;
+    registerUser(email, password, name, navigate);
+    console.log(user);
+  };
+
+  //   google sign in
+  const handleGoogleSignIn = () => {
+    signInWithGoogle(location, navigate);
+  };
 
   return (
     <div className="grid grid-cols-2">
@@ -24,20 +48,25 @@ const Login = () => {
         </p>
         <div className="w-3/4 2xl:w-1/2">
           {isNew ? (
+            //sign up area
+
             <div>
               <input
                 className="w-full p-3 my-3 rounded-md outline-blue-300"
                 type="text"
                 name="name"
                 id="name"
+                required
                 autoComplete="off"
                 placeholder="Name"
               />
+
               <input
                 className="w-full p-3 my-3 rounded-md outline-blue-300"
                 type="email"
                 name="email"
                 id="email"
+                required
                 autoComplete="off"
                 placeholder="Email"
               />
@@ -46,16 +75,20 @@ const Login = () => {
                 type="password"
                 name="password"
                 id="password"
+                required
                 placeholder="Password"
               />
             </div>
           ) : (
+            //login area
+
             <div>
               <input
                 className="w-full p-3 my-3 rounded-md outline-blue-300"
                 type="email"
                 name="email"
                 id="email"
+                required
                 autoComplete="off"
                 placeholder="Email"
               />
@@ -63,21 +96,63 @@ const Login = () => {
                 className="w-full p-3 my-3 rounded-md outline-blue-300"
                 type="password"
                 name="password"
+                required
                 id="password"
                 placeholder="Password"
               />
             </div>
           )}
+          <>
+            {isLoading && (
+              <div className="flex justify-center items-center space-x-2">
+                <div
+                  className="
+    spinner-border
+    animate-spin
+    inline-block
+    w-8
+    h-8
+    border-4
+    rounded-full
+    text-purple-500
+  "
+                  role="status"
+                >
+                  <span className="visually-hidden">Loading...</span>
+                </div>
+              </div>
+            )}
+            {user?.email && (
+              <div
+                className="bg-green-100 rounded-lg py-5 px-6 mb-4 text-base text-green-700"
+                role="alert"
+              >
+                User Created successfully
+              </div>
+            )}
+          </>
+          <>
+            {authError && (
+              <div
+                className="bg-red-100 rounded-lg py-5 px-6 mb-4 text-base text-red-700"
+                role="alert"
+              >
+                {authError}
+              </div>
+            )}
+          </>
           <div className="w-full flex justify-end">
+            {/* google login btn  */}
+
             <button
               className="p-2 ml-3 hover:bg-blue-100 transition ease-in-out duration-500 rounded-full uppercase font-semibold"
-              onClick={() => {
-                console.log("Google Login");
-              }}
+              onClick={handleGoogleSignIn}
             >
               <img src={googleIcon} alt="Google Icon" className="w-7" />
             </button>
             {isNew ? (
+              // register btn
+
               <button
                 className="p-3 ml-3 bg-blue-100 hover:bg-blue-200 transition ease-in-out duration-500 rounded-md uppercase font-semibold text-sm"
                 onClick={() => {
@@ -87,6 +162,8 @@ const Login = () => {
                 Register
               </button>
             ) : (
+              //login btn
+
               <button
                 className="p-3 ml-3 bg-blue-100 hover:bg-blue-200 transition ease-in-out duration-500 rounded-md uppercase font-semibold text-sm"
                 onClick={() => {
