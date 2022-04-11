@@ -7,6 +7,7 @@ import Cart from "./Pages/Cart/Cart";
 import Profile from "./Pages/Profile/Profile";
 import Forum from "./Pages/Forum/Forum";
 import AuthProvider from "./ContextApi/AuthProvider/AuthProvider";
+import PrivateRoute from "./Pages/Login/ProtectedRoute/PrivateRoute";
 
 function App() {
   return (
@@ -19,9 +20,30 @@ function App() {
           <Routes>
             <Route path="/" element={<Home></Home>} />
             <Route path="/login" element={<Login></Login>} />
-            <Route path="/cart" element={<Cart></Cart>} />
-            <Route path="/user" element={<Profile></Profile>} />
-            <Route path="/forum" element={<Forum></Forum>} />
+            <Route
+              path="/cart"
+              element={
+                <PrivateRoute>
+                  <Cart></Cart>
+                </PrivateRoute>
+              }
+            />
+            <Route
+              path="/user"
+              element={
+                <PrivateRoute>
+                  <Profile></Profile>
+                </PrivateRoute>
+              }
+            />
+            <Route
+              path="/forum"
+              element={
+                <PrivateRoute>
+                  <Forum></Forum>
+                </PrivateRoute>
+              }
+            />
           </Routes>
         </div>
       </div>
