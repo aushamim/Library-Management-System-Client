@@ -74,7 +74,10 @@ const Books = ({ title, author, date, publisher, price, cover }) => {
                 // console.log(title, author, date, publisher, price, cover);
                 // console.log(bookData);
                 axios
-                  .post("http://localhost:5000/books", bookData)
+                  .post(
+                    "https://polar-lake-51656.herokuapp.com/books",
+                    bookData
+                  )
                   .then((res) => {
                     if (res.data.insertedId) {
                       alert("Successfully Added A New Book");
