@@ -103,7 +103,7 @@ const Login = () => {
             </div>
           )}
           <>
-            {/* {isLoading && (
+            {isLoading && (
               <div className="flex justify-center items-center space-x-2">
                 <div
                   className="
@@ -121,7 +121,7 @@ const Login = () => {
                   <span className="visually-hidden">Loading...</span>
                 </div>
               </div>
-            )} */}
+            )}
             {user?.email && (
               <div
                 className="bg-green-100 rounded-lg py-5 px-6 mb-4 text-base text-green-700"
