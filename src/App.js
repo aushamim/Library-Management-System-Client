@@ -31,21 +31,16 @@ function App() {
               }
             />
             <Route
-              path="/user"
+              path="/user/:id"
+              exact={true}
               element={
                 <PrivateRoute>
                   <Profile></Profile>
                 </PrivateRoute>
               }
             />
-            <Route
-              path="/forum"
-              element={
-                <PrivateRoute>
-                  <Forum></Forum>
-                </PrivateRoute>
-              }
-            />
+
+            <Route path="/forum" element={<Forum></Forum>} />
             <Route
               path="/add"
               element={

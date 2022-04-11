@@ -3,7 +3,9 @@ import { Link } from "react-router-dom";
 import useAuth from "../../Hooks/useAuth";
 
 const Navigation = () => {
-  const { logout, user } = useAuth();
+  const { logout, user, dbUser } = useAuth();
+
+  const id = dbUser?.filter((x) => x.email === user?.email);
 
   return (
     <div className="p-5 text-center navigation">
@@ -45,7 +47,7 @@ const Navigation = () => {
       </Link>
 
       {/* Profile */}
-      <Link to="/user">
+      <Link to={`/user/${id[0]?._id}`}>
         <div className="flex flex-col justify-center items-center my-5 p-2 group relative">
           <svg
             xmlns="http://www.w3.org/2000/svg"

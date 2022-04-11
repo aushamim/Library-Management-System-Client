@@ -27,7 +27,7 @@ const Home = () => {
           </p>
         </div>
 
-        {user ? (
+        {user.email ? (
           <div>
             <div className="flex justify-end">
               <div className="flex items-center mr-5">
@@ -51,7 +51,7 @@ const Home = () => {
                 </button>
               </div>
               <div className="w-10 h-10 rounded-full flex items-center">
-                {user.photoURL ? (
+                {user.email ? (
                   <img
                     src={user.photoURL}
                     alt="avatar"

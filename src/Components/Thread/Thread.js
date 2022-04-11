@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { Link } from "react-router-dom";
 import Reply from "../Reply/Reply";
 import avatar from "./../../Media/default-avatar.png";
 
@@ -12,7 +13,9 @@ const Thread = () => {
           <img src={avatar} alt="avatar" className="w-full" />
         </div>
         <div className="w-full">
-          <p className="text-xl font-semibold text-gray-500">Shamim</p>
+          <Link to="/user/:id">
+            <p className="text-xl font-semibold text-gray-500">Shamim</p>
+          </Link>
           <p className="text-xs font-semibold text-gray-400">01/04/2022</p>
         </div>
         <div className="flex justify-center items-center mr-3 group">
