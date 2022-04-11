@@ -5,7 +5,6 @@ import avatar from "./../../Media/default-avatar.png";
 
 const Home = () => {
   const { user } = useAuth();
-  console.log(user);
 
   return (
     <div>
@@ -44,7 +43,12 @@ const Home = () => {
             </div>
             <div className="w-10 h-10 rounded-full flex items-center">
               {user.photoURL ? (
-                <img src={user.photoURL} alt="avatar" className="w-full" />
+                <img
+                  src={user.photoURL}
+                  alt="avatar"
+                  className="w-full rounded-full"
+                  referrerpolicy="no-referrer"
+                />
               ) : (
                 <img src={avatar} alt="avatar" className="w-full" />
               )}

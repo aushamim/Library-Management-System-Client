@@ -1,9 +1,10 @@
+import userEvent from "@testing-library/user-event";
 import React from "react";
 import { Link } from "react-router-dom";
 import useAuth from "../../Hooks/useAuth";
 
 const Navigation = () => {
-  const { logout } = useAuth();
+  const { logout, user } = useAuth();
 
   return (
     <div className="p-5 text-center navigation">
@@ -187,7 +188,6 @@ const Navigation = () => {
           <span className="nav-tooltip">Log In</span>
         </div>
       </Link>
-
       {/* Logout */}
       <button onClick={logout}>
         <div className="flex flex-col justify-center items-center my-5 p-2 group relative">
