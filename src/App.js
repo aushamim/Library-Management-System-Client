@@ -9,6 +9,7 @@ import Forum from "./Pages/Forum/Forum";
 import AuthProvider from "./ContextApi/AuthProvider/AuthProvider";
 import PrivateRoute from "./Pages/Login/ProtectedRoute/PrivateRoute";
 import AddBooks from "./Pages/AddBooks/AddBooks";
+import Admin from "./Pages/Admin/Admin";
 
 function App() {
   return (
@@ -50,6 +51,14 @@ function App() {
               element={
                 <PrivateRoute>
                   <AddBooks></AddBooks>
+                </PrivateRoute>
+              }
+            />
+            <Route
+              path="/admin"
+              element={
+                <PrivateRoute>
+                  <Admin></Admin>
                 </PrivateRoute>
               }
             />
