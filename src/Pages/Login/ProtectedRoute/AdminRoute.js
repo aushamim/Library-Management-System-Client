@@ -11,12 +11,12 @@ const AdminRoute = ({ children, ...rest }) => {
 
   if (isLoading) {
     return (
-      <div class="flex items-center justify-center">
+      <div className="flex items-center justify-center">
         <div
-          class="spinner-border animate-spin inline-block w-8 h-8 border-4 rounded-full text-purple-500"
+          className="spinner-border animate-spin inline-block w-8 h-8 border-4 rounded-full text-purple-500"
           role="status"
         >
-          <span class="visually-hidden">Loading...</span>
+          <span className="visually-hidden">Loading...</span>
         </div>
       </div>
     );
