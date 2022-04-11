@@ -1,15 +1,8 @@
+import axios from "axios";
 import React from "react";
 import defaultCover from "./../../Media/default-cover.jpg";
 
-// const Books = ({ title, author, date, publisher, price, cover }) => {
-const Books = ({
-  title = "Sword Art Online - Novel 01",
-  author = "Reki Kawahara",
-  date = "2015-03-09",
-  publisher = "Yen Press",
-  price = 100,
-  cover = "http://books.google.com/books/content?id=5UO9oAEACAAJ&printsec=frontcover&img=1&zoom=1&source=gbs_api",
-}) => {
+const Books = ({ title, author, date, publisher, price, cover }) => {
   const pathArray = window.location.pathname.split("/");
 
   return (
@@ -70,7 +63,26 @@ const Books = ({
             <button
               className="bg-emerald-100 hover:bg-emerald-300 transition ease-in-out duration-500 shadow-sm p-2 rounded-md font-semibold text-xs flex items-center justify-center"
               onClick={() => {
-                console.log(title, author, date, publisher, price, cover);
+                const bookData = {
+                  title,
+                  author,
+                  date,
+                  publisher,
+                  price,
+                  cover,
+                };
+                // console.log(title, author, date, publisher, price, cover);
+                // console.log(bookData);
+                axios
+                  .post(
+                    "https://polar-lake-51656.herokuapp.com/books",
+                    bookData
+                  )
+                  .then((res) => {
+                    if (res.data.insertedId) {
+                      alert("Successfully Added A New Book");
+                    }
+                  });
               }}
             >
               <svg

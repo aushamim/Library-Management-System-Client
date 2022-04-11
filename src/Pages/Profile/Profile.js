@@ -6,9 +6,36 @@ import coins from "./../../Media/coins.png";
 import finished from "./../../Media/bookmark.png";
 import Books from "../../Components/Books/Books";
 import useAuth from "../../Hooks/useAuth";
+import { useParams } from "react-router-dom";
 
 const Profile = () => {
-  const { user } = useAuth();
+  const { id } = useParams();
+  const { user, dbUser } = useAuth();
+
+  const singleUser = dbUser.filter((x) => x._id === id);
+
+  // convt date
+  const handleDate = (time) => {
+    const months = [
+      "Jan",
+      "Feb",
+      "Mar",
+      "Apr",
+      "May",
+      "Jun",
+      "Jul",
+      "Aug",
+      "Sep",
+      "Oct",
+      "Nov",
+      "Dec",
+    ];
+    const date = new Date(time);
+    const year = date.getFullYear();
+    const month = date.getMonth();
+    const day = date.getDate();
+    return `${day} ${months[month]}, ${year}`;
+  };
 
   return (
     <div className="grid grid-cols-1 xl:grid-cols-4 xl:gap-10 mb-5 h-[90vh] 2xl:h-[93vh] overflow-y-scroll">
@@ -19,8 +46,13 @@ const Profile = () => {
               <div className="border-2 border-blue-500 rounded-full w-32">
                 <div className="rounded-full p-1">
                   <img
-                    src={user.photoURL ? user.photoURL : avatar}
-                    alt={user.displayName}
+                    src={
+                      singleUser[0]?.userImg === "defaultAvatar"
+                        ? avatar
+                        : singleUser[0]?.userImg
+                    }
+                    referrerPolicy="no-referrer"
+                    alt={singleUser[0]?.displayName}
                     className="w-full rounded-full"
                   />
                 </div>
@@ -33,7 +65,9 @@ const Profile = () => {
         </div>
         <div className="bg-white rounded-md p-5 my-5">
           <div className="grid grid-cols-5 items-center">
-            <p className="font-semibold text-2xl col-span-4">Shamim</p>
+            <p className="font-semibold text-2xl col-span-4">
+              {singleUser[0]?.displayName}
+            </p>
             <div className="flex justify-end">
               <button
                 className="p-2 hover:bg-blue-100 transition ease-in-out duration-500 rounded-full group"
@@ -64,10 +98,12 @@ const Profile = () => {
           <hr className="my-3" />
           <div className="grid grid-cols-3">
             <p className="font-semibold text-gray-500 my-1">Position</p>
-            <p className="col-span-2 text-right font-semibold my-1">User</p>
+            <p className="col-span-2 text-right font-semibold my-1">
+              {singleUser[0]?.role}
+            </p>
             <p className="font-semibold text-gray-500 my-1">Join Date</p>
             <p className="col-span-2 text-right font-semibold my-1">
-              06 Apr, 2022
+              {handleDate(singleUser[0]?.joinDate)}
             </p>
             <p className="font-semibold text-gray-500 my-1">Phone</p>
             <p className="col-span-2 text-right font-semibold my-1">
@@ -75,12 +111,17 @@ const Profile = () => {
             </p>
             <p className="font-semibold text-gray-500 my-1">Email</p>
             <p className="col-span-2 text-right font-semibold my-1">
-              shamim@gmail.com
+              {singleUser[0]?.email}
             </p>
             <p className="font-semibold text-gray-500 my-1">Following</p>
-            <p className="col-span-2 text-right font-semibold my-1">0</p>
+            <p className="col-span-2 text-right font-semibold my-1">
+              {singleUser[0]?.following.length}
+            </p>
             <p className="font-semibold text-gray-500 my-1">Followers</p>
-            <p className="col-span-2 text-right font-semibold my-1">0</p>
+            <p className="col-span-2 text-right font-semibold my-1">
+              {" "}
+              {singleUser[0]?.followers.length}
+            </p>
           </div>
         </div>
       </div>
@@ -92,7 +133,7 @@ const Profile = () => {
               <img src={wish} alt="Wishlist" className="w-1/2" />
             </div>
             <div className="col-span-2 text-center uppercase text-2xl text-orange-600">
-              <p className="font-bold">10</p>
+              <p className="font-bold">{singleUser[0]?.planning.length}</p>
               <p className="font-semibold text-sm mt-1">Planning</p>
             </div>
           </div>
@@ -101,7 +142,7 @@ const Profile = () => {
               <img src={finished} alt="Finished reading" className="w-1/2" />
             </div>
             <div className="col-span-2 text-center uppercase text-2xl text-blue-600">
-              <p className="font-bold">10</p>
+              <p className="font-bold">{singleUser[0]?.finished.length}</p>
               <p className="font-semibold text-sm mt-1">Finished</p>
             </div>
           </div>
@@ -110,7 +151,7 @@ const Profile = () => {
               <img src={reading} alt="Wishlist" className="w-1/2" />
             </div>
             <div className="col-span-2 text-center uppercase text-2xl text-teal-600">
-              <p className="font-bold">10</p>
+              <p className="font-bold">{singleUser[0]?.reading.length}</p>
               <p className="font-semibold text-sm mt-1">Reading</p>
             </div>
           </div>
@@ -119,7 +160,7 @@ const Profile = () => {
               <img src={coins} alt="Bought Books" className="w-1/2" />
             </div>
             <div className="col-span-2 text-center uppercase text-2xl text-violet-600">
-              <p className="font-bold">10</p>
+              <p className="font-bold">{singleUser[0]?.bought.length}</p>
               <p className="font-semibold text-sm mt-1">Bought</p>
             </div>
           </div>

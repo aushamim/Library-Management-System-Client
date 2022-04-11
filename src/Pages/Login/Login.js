@@ -23,6 +23,7 @@ const Login = () => {
   const callLogin = () => {
     const email = document.getElementById("email").value;
     const password = document.getElementById("password").value;
+
     loginUser(email, password, location, navigate);
   };
 
@@ -31,13 +32,55 @@ const Login = () => {
     const name = document.getElementById("name").value;
     const email = document.getElementById("email").value;
     const password = document.getElementById("password").value;
-    registerUser(email, password, name, navigate);
-    console.log(user);
+    const joinDate = new Date().getTime();
+    const role = "user";
+    const following = [];
+    const followers = [];
+    const planning = [];
+    const finished = [];
+    const reading = [];
+    const bought = [];
+    const userImg = "defaultAvatar";
+    registerUser(
+      email,
+      password,
+      name,
+      navigate,
+      joinDate,
+      role,
+      following,
+      followers,
+      planning,
+      finished,
+      reading,
+      bought,
+      userImg
+    );
   };
 
   //   google sign in
   const handleGoogleSignIn = () => {
-    signInWithGoogle(location, navigate);
+    const joinDate = new Date().getTime();
+    const role = "user";
+    const following = [];
+    const followers = [];
+    const planning = [];
+    const finished = [];
+    const reading = [];
+    const bought = [];
+
+    signInWithGoogle(
+      location,
+      navigate,
+      joinDate,
+      role,
+      following,
+      followers,
+      planning,
+      finished,
+      reading,
+      bought
+    );
   };
 
   return (

@@ -17,12 +17,19 @@ firebaseAuthentication();
 const useFirebase = () => {
   // declare user state
   const [user, setUser] = useState({});
+
+  // declare DBuser state
+  const [dbUser, setDbUser] = useState([]);
   // user state change state
   const [isLoading, setIsLoading] = useState(true);
   // error state
   const [authError, setAuthError] = useState("");
   //declare admin
   const [admin, setAdmin] = useState("false");
+
+  //declare books
+  const [books, setBooks] = useState([]);
+
   // declare auth
   const auth = getAuth();
 
@@ -30,7 +37,21 @@ const useFirebase = () => {
   const googleProvider = new GoogleAuthProvider();
 
   // register new user
-  const registerUser = (email, password, name, navigate) => {
+  const registerUser = (
+    email,
+    password,
+    name,
+    navigate,
+    joinDate,
+    role,
+    following,
+    followers,
+    planning,
+    finished,
+    reading,
+    bought,
+    userImg
+  ) => {
     setIsLoading(true);
     createUserWithEmailAndPassword(auth, email, password)
       .then((userCredential) => {
@@ -38,7 +59,21 @@ const useFirebase = () => {
         const newUser = { email, displayName: name };
         setUser(newUser);
         // save user to the database
-        saveUser(email, name, "POST");
+        saveUser(
+          email,
+          name,
+          joinDate,
+          role,
+          following,
+          followers,
+          planning,
+          finished,
+          reading,
+          bought,
+          userImg,
+          "POST"
+        );
+
         // send name to firebase after creation
         updateProfile(auth.currentUser, {
           displayName: name,
@@ -67,13 +102,37 @@ const useFirebase = () => {
       .finally(() => setIsLoading(false));
   };
   // google sign in
-  const signInWithGoogle = (location, navigate) => {
+  const signInWithGoogle = (
+    location,
+    navigate,
+    joinDate,
+    role,
+    following,
+    followers,
+    planning,
+    finished,
+    reading,
+    bought
+  ) => {
     setIsLoading(true);
     signInWithPopup(auth, googleProvider)
       .then((result) => {
         const user = result.user;
         // save user to the database
-        saveUser(user.email, user.displayName, "PUT");
+        saveUser(
+          user.email,
+          user.displayName,
+          joinDate,
+          role,
+          following,
+          followers,
+          planning,
+          finished,
+          reading,
+          bought,
+          user.photoURL,
+          "PUT"
+        );
         setAuthError("");
         const destination = location?.state?.from || "/";
         navigate(destination);
@@ -108,9 +167,34 @@ const useFirebase = () => {
       .finally(() => setIsLoading(false));
   };
   // saved user function
-  const saveUser = (email, displayName, method) => {
-    const user = { email, displayName };
-    fetch("http://localhost:5000/users", {
+  const saveUser = (
+    email,
+    displayName,
+    joinDate,
+    role,
+    following,
+    followers,
+    planning,
+    finished,
+    reading,
+    bought,
+    userImg,
+    method
+  ) => {
+    const user = {
+      email,
+      displayName,
+      joinDate,
+      role,
+      following,
+      followers,
+      planning,
+      finished,
+      reading,
+      bought,
+      userImg,
+    };
+    fetch("https://polar-lake-51656.herokuapp.com/users", {
       method: method,
       headers: {
         "content-type": "application/json",
@@ -120,10 +204,25 @@ const useFirebase = () => {
   };
   // // admin data load
   // useEffect(() => {
-  //   fetch(`http://localhost:5000/users/${user.email}`)
+  //   fetch(`https://polar-lake-51656.herokuapp.com/users/${user.email}`)
   //     .then((res) => res.json())
   //     .then((data) => setAdmin(data.admin));
   // }, [user.email]);
+
+  // books data load
+  useEffect(() => {
+    fetch("https://polar-lake-51656.herokuapp.com/books")
+      .then((res) => res.json())
+      .then((data) => setBooks(data));
+  }, []);
+
+  // users data load
+  useEffect(() => {
+    fetch("https://polar-lake-51656.herokuapp.com/users")
+      .then((res) => res.json())
+      .then((data) => setDbUser(data));
+  }, []);
+
   return {
     registerUser,
     authError,
@@ -133,6 +232,8 @@ const useFirebase = () => {
     user,
     isLoading,
     admin,
+    books,
+    dbUser,
   };
 };
 

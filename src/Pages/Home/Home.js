@@ -4,7 +4,7 @@ import useAuth from "../../Hooks/useAuth";
 import avatar from "./../../Media/default-avatar.png";
 
 const Home = () => {
-  const { user } = useAuth();
+  const { user, books } = useAuth();
 
   return (
     <div>
@@ -27,7 +27,7 @@ const Home = () => {
           </p>
         </div>
 
-        {user ? (
+        {user.email ? (
           <div>
             <div className="flex justify-end">
               <div className="flex items-center mr-5">
@@ -51,7 +51,7 @@ const Home = () => {
                 </button>
               </div>
               <div className="w-10 h-10 rounded-full flex items-center">
-                {user.photoURL ? (
+                {user.email ? (
                   <img
                     src={user.photoURL}
                     alt="avatar"
@@ -123,22 +123,17 @@ const Home = () => {
         </div>
 
         <div className="mt-10 grid grid-cols-1 lg:grid-cols-2 2xl:grid-cols-4 gap-5 h-[75vh] lg:h-[59vh] 2xl:h-[69vh] overflow-y-scroll">
-          <Books></Books>
-          <Books></Books>
-          <Books></Books>
-          <Books></Books>
-          <Books></Books>
-          <Books></Books>
-          <Books></Books>
-          <Books></Books>
-          <Books></Books>
-          <Books></Books>
-          <Books></Books>
-          <Books></Books>
-          <Books></Books>
-          <Books></Books>
-          <Books></Books>
-          <Books></Books>
+          {books.map((book) => (
+            <Books
+              key={book?._id}
+              title={book?.title}
+              author={book?.author}
+              date={book?.date}
+              publisher={book?.publisher}
+              price={book?.price}
+              cover={book?.cover}
+            ></Books>
+          ))}
         </div>
       </div>
     </div>
