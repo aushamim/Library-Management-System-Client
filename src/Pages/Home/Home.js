@@ -1,8 +1,12 @@
 import React from "react";
 import Books from "../../Components/Books/Books";
+import useAuth from "../../Hooks/useAuth";
 import avatar from "./../../Media/default-avatar.png";
 
 const Home = () => {
+  const { user } = useAuth();
+  console.log(user);
+
   return (
     <div>
       <div className="grid grid-cols-8">
@@ -39,7 +43,11 @@ const Home = () => {
               </button>
             </div>
             <div className="w-10 h-10 rounded-full flex items-center">
-              <img src={avatar} alt="avatar" className="w-full" />
+              {user.photoURL ? (
+                <img src={user.photoURL} alt="avatar" className="w-full" />
+              ) : (
+                <img src={avatar} alt="avatar" className="w-full" />
+              )}
             </div>
             <div className="flex items-center">
               <button>

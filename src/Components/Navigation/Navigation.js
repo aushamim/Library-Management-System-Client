@@ -1,7 +1,10 @@
 import React from "react";
 import { Link } from "react-router-dom";
+import useAuth from "../../Hooks/useAuth";
 
 const Navigation = () => {
+  const { logout } = useAuth();
+
   return (
     <div className="p-5 text-center navigation">
       <Link to="/">
@@ -186,11 +189,7 @@ const Navigation = () => {
       </Link>
 
       {/* Logout */}
-      <button
-        onClick={() => {
-          console.log("Log Out");
-        }}
-      >
+      <button onClick={logout}>
         <div className="flex flex-col justify-center items-center my-5 p-2 group relative">
           <svg
             xmlns="http://www.w3.org/2000/svg"
