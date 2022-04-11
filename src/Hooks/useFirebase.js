@@ -23,6 +23,10 @@ const useFirebase = () => {
   const [authError, setAuthError] = useState("");
   //declare admin
   const [admin, setAdmin] = useState("false");
+
+  //declare books
+  const [books, setBooks] = useState([]);
+
   // declare auth
   const auth = getAuth();
 
@@ -124,6 +128,14 @@ const useFirebase = () => {
   //     .then((res) => res.json())
   //     .then((data) => setAdmin(data.admin));
   // }, [user.email]);
+
+  // books data load
+  useEffect(() => {
+    fetch("http://localhost:5000/books")
+      .then((res) => res.json())
+      .then((data) => setBooks(data));
+  }, []);
+
   return {
     registerUser,
     authError,
@@ -133,6 +145,7 @@ const useFirebase = () => {
     user,
     isLoading,
     admin,
+    books,
   };
 };
 
