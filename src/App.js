@@ -47,7 +47,7 @@ function App() {
               }
             />
             <Route
-              path="/forum"
+              path="/add"
               element={
                 <PrivateRoute>
                   <AddBooks></AddBooks>
