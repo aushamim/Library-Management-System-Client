@@ -36,6 +36,30 @@ const useFirebase = () => {
   // google auth
   const googleProvider = new GoogleAuthProvider();
 
+  // Refresh Handler
+  const [refreshState, setRefreshState] = useState(true);
+
+  const refresh = () => {
+    refreshState ? setRefreshState(false) : setRefreshState(true);
+  };
+
+  // Read Cart
+  const getCart = () => {
+    const lsCart = localStorage.getItem("cartItems");
+    return lsCart ? JSON.parse(lsCart) : [];
+  };
+  // Write Cart
+  const storeCart = (data) => {
+    const lsCart = getCart();
+    localStorage.setItem("cartItems", JSON.stringify([...lsCart, data]));
+  };
+  // Remove from cart
+  const removeFromCart = () => {};
+  // Clear cart
+  const clearCart = () => {
+    localStorage.clear();
+  };
+
   // register new user
   const registerUser = (
     email,
@@ -234,6 +258,12 @@ const useFirebase = () => {
     admin,
     books,
     dbUser,
+    refreshState,
+    refresh,
+    getCart,
+    storeCart,
+    removeFromCart,
+    clearCart,
   };
 };
 

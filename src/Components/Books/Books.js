@@ -1,9 +1,12 @@
 import axios from "axios";
 import React from "react";
+import useAuth from "../../Hooks/useAuth";
 import defaultCover from "./../../Media/default-cover.jpg";
 
-const Books = ({ title, author, date, publisher, price, cover }) => {
+const Books = ({ id, title, author, date, publisher, price, cover }) => {
   const pathArray = window.location.pathname.split("/");
+
+  const { storeCart, removeFromCart } = useAuth();
 
   return (
     <div className="bg-white rounded-md shadow flex h-max">
@@ -139,7 +142,13 @@ const Books = ({ title, author, date, publisher, price, cover }) => {
             </button>
           )}
           {pathArray[1] !== "add" && pathArray[1] !== "cart" ? (
-            <button className="bg-emerald-100 hover:bg-emerald-300 transition ease-in-out duration-500 shadow-sm p-2 rounded-md font-semibold text-xs flex items-center justify-center">
+            // Add to Cart Button
+            <button
+              className="bg-emerald-100 hover:bg-emerald-300 transition ease-in-out duration-500 shadow-sm p-2 rounded-md font-semibold text-xs flex items-center justify-center"
+              onClick={() => {
+                storeCart({ id: id, price: price });
+              }}
+            >
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 className="icon icon-tabler icon-tabler-shopping-cart-plus"

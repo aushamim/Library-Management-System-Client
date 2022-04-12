@@ -1,20 +1,37 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import Books from "../../Components/Books/Books";
+import useAuth from "../../Hooks/useAuth";
 
 const Cart = () => {
+  const { books, getCart } = useAuth();
+
+  const [cartItems, setCartItems] = useState([]);
+  useEffect(() => {
+    setCartItems(getCart);
+  }, [getCart]);
+
+  const cartComponentHandler = (id) => {
+    const book = books.filter((x) => x._id === id);
+    return (
+      <Books
+        key={book[0]?._id}
+        id={book[0]?._id}
+        title={book[0]?.title}
+        author={book[0]?.author}
+        date={book[0]?.date}
+        publisher={book[0]?.publisher}
+        price={book[0]?.price}
+        cover={book[0]?.cover}
+      ></Books>
+    );
+  };
+
   return (
     <div className="grid grid-cols-3 gap-5">
       <div className="col-span-2">
         <p className="font-semibold text-2xl text-gray-500 mb-5">• Cart</p>
         <div className="grid grid-cols-1 xl:grid-cols-2 2xl:grid-cols-3 gap-5 h-[82vh] 2xl:h-[86vh] overflow-y-scroll">
-          <Books></Books>
-          <Books></Books>
-          <Books></Books>
-          <Books></Books>
-          <Books></Books>
-          <Books></Books>
-          <Books></Books>
-          <Books></Books>
+          {cartItems?.map((x) => cartComponentHandler(x.id))}
         </div>
       </div>
       <div className="mt-14">

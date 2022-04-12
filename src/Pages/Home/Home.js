@@ -11,11 +11,14 @@ const Home = () => {
       <div className="grid grid-cols-8">
         <div className="mb-14 col-span-7">
           <p className="text-4xl">
-            Hi,{" "}
-            {user ? (
-              <span className="font-semibold text-gray-700">
-                {user.displayName}
-              </span>
+            Hi
+            {user.email ? (
+              <>
+                ,{" "}
+                <span className="font-semibold text-gray-700">
+                  {user.displayName}
+                </span>
+              </>
             ) : (
               ""
             )}{" "}
@@ -126,6 +129,7 @@ const Home = () => {
           {books.map((book) => (
             <Books
               key={book?._id}
+              id={book?._id}
               title={book?.title}
               author={book?.author}
               date={book?.date}
