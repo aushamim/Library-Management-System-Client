@@ -14,7 +14,7 @@ const Cart = () => {
     const book = books.filter((x) => x._id === id);
     return (
       <Books
-        key={book[0]?._id}
+        key={Math.floor(Math.random() * (99999999 - 10000000)) + 10000000}
         id={book[0]?._id}
         title={book[0]?.title}
         author={book[0]?.author}
