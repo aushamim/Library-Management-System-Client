@@ -49,6 +49,13 @@ const useFirebase = () => {
     const lsPrice = getPrice();
     localStorage.setItem("price", JSON.stringify(lsPrice + data));
   };
+  const removePrice = (data) => {
+    const lsPrice = getPrice();
+    localStorage.setItem("price", JSON.stringify(lsPrice - data));
+  };
+  const clearPrice = (data) => {
+    localStorage.setItem("price", JSON.stringify(0));
+  };
 
   // Refresh Handler
   const [refreshState, setRefreshState] = useState(true);
@@ -68,10 +75,16 @@ const useFirebase = () => {
     localStorage.setItem("cartItems", JSON.stringify([...lsCart, data]));
   };
   // Remove from cart
-  const removeFromCart = () => {};
+  const removeFromCart = (id) => {
+    const lsCart = getCart();
+    const index = lsCart.findIndex((x) => x.id === id);
+    lsCart.splice(index, 1);
+    localStorage.setItem("cartItems", JSON.stringify(lsCart));
+    window.location.reload();
+  };
   // Clear cart
   const clearCart = () => {
-    localStorage.clear();
+    localStorage.setItem("cartItems", JSON.stringify([]));
     window.location.reload();
   };
 
@@ -281,6 +294,8 @@ const useFirebase = () => {
     clearCart,
     getPrice,
     storePrice,
+    removePrice,
+    clearPrice,
   };
 };
 

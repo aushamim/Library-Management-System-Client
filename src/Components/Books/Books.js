@@ -6,7 +6,7 @@ import defaultCover from "./../../Media/default-cover.jpg";
 const Books = ({ id, title, author, date, publisher, price, cover }) => {
   const pathArray = window.location.pathname.split("/");
 
-  const { storeCart, removeFromCart, storePrice } = useAuth();
+  const { storeCart, removeFromCart, storePrice, removePrice } = useAuth();
 
   return (
     <div className="bg-white rounded-md shadow flex h-max">
@@ -117,7 +117,9 @@ const Books = ({ id, title, author, date, publisher, price, cover }) => {
             <button
               className="bg-red-100 hover:bg-red-300 transition ease-in-out duration-500 shadow-sm p-2 rounded-md flex items-center justify-center"
               onClick={() => {
-                pathArray[1] !== "" ? console.log(pathArray[1]) : console.log();
+                // pathArray[1] === "cart" &&
+                removeFromCart(id);
+                removePrice(price);
               }}
             >
               <svg

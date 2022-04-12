@@ -3,7 +3,7 @@ import Books from "../../Components/Books/Books";
 import useAuth from "../../Hooks/useAuth";
 
 const Cart = () => {
-  const { books, getCart, clearCart, getPrice } = useAuth();
+  const { books, getCart, clearCart, getPrice, clearPrice } = useAuth();
   const totalPrice = getPrice();
   const [cartItems, setCartItems] = useState([]);
   useEffect(() => {
@@ -67,6 +67,7 @@ const Cart = () => {
             className="bg-blue-100 hover:bg-blue-300 transition ease-in-out duration-500 shadow-sm p-2 rounded-md font-semibold text-xs flex items-center justify-center w-full"
             onClick={() => {
               clearCart();
+              clearPrice();
             }}
           >
             <svg

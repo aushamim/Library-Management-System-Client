@@ -10,7 +10,7 @@ import { useParams } from "react-router-dom";
 
 const Profile = () => {
   const { id } = useParams();
-  const { user, dbUser } = useAuth();
+  const { dbUser } = useAuth();
 
   const singleUser = dbUser.filter((x) => x._id === id);
 
