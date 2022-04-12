@@ -3,8 +3,8 @@ import Books from "../../Components/Books/Books";
 import useAuth from "../../Hooks/useAuth";
 
 const Cart = () => {
-  const { books, getCart } = useAuth();
-
+  const { books, getCart, clearCart, getPrice } = useAuth();
+  const totalPrice = getPrice();
   const [cartItems, setCartItems] = useState([]);
   useEffect(() => {
     setCartItems(getCart);
@@ -40,19 +40,35 @@ const Cart = () => {
           <hr className="my-3" />
           <div className="grid grid-cols-2">
             <p className="font-semibold text-gray-500 my-1">Total Item</p>
-            <p className="text-right font-semibold my-1">2</p>
+            <p className="text-right font-semibold my-1">{cartItems.length}</p>
             <p className="font-semibold text-gray-500 my-1">Total Price</p>
-            <p className="text-right font-semibold my-1">250$</p>
+            <p className="text-right font-semibold my-1">
+              {totalPrice}
+              <span className="font-extrabold text-sm">৳</span>
+            </p>
             <p className="font-semibold text-gray-500 my-1">Discount(20%)</p>
-            <p className="text-right font-semibold my-1">-50$</p>
+            <p className="text-right font-semibold my-1">
+              -{(totalPrice * (20 / 100)).toFixed(2)}
+              <span className="font-extrabold text-sm">৳</span>
+            </p>
             <hr className="my-3" />
             <hr className="my-3" />
             <p className="font-semibold text-gray-500 my-1">Grand Total</p>
-            <p className="text-right font-semibold my-1">200$</p>
+            <p className="text-right font-semibold my-1">
+              <span id="grandTotal">
+                {(totalPrice - totalPrice * (20 / 100)).toFixed(2)}
+              </span>
+              <span className="font-extrabold text-sm">৳</span>
+            </p>
           </div>
         </div>
         <div className="mt-5 rounded-md shadow-sm 2xl:w-3/4">
-          <button className="bg-blue-100 hover:bg-blue-300 transition ease-in-out duration-500 shadow-sm p-2 rounded-md font-semibold text-xs flex items-center justify-center w-full">
+          <button
+            className="bg-blue-100 hover:bg-blue-300 transition ease-in-out duration-500 shadow-sm p-2 rounded-md font-semibold text-xs flex items-center justify-center w-full"
+            onClick={() => {
+              clearCart();
+            }}
+          >
             <svg
               xmlns="http://www.w3.org/2000/svg"
               className="icon icon-tabler icon-tabler-shopping-cart-plus"

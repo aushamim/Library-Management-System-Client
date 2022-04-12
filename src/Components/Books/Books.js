@@ -6,7 +6,7 @@ import defaultCover from "./../../Media/default-cover.jpg";
 const Books = ({ id, title, author, date, publisher, price, cover }) => {
   const pathArray = window.location.pathname.split("/");
 
-  const { storeCart, removeFromCart } = useAuth();
+  const { storeCart, removeFromCart, storePrice } = useAuth();
 
   return (
     <div className="bg-white rounded-md shadow flex h-max">
@@ -27,7 +27,8 @@ const Books = ({ id, title, author, date, publisher, price, cover }) => {
           </p>
           <p className="text-xs mb-1 font-semibold">
             <span className="text-gray-400">Price: </span>
-            {price}$
+            {price}
+            <span className="font-extrabold text-sm">৳</span>
           </p>
         </div>
         <hr className="my-3" />
@@ -147,6 +148,7 @@ const Books = ({ id, title, author, date, publisher, price, cover }) => {
               className="bg-emerald-100 hover:bg-emerald-300 transition ease-in-out duration-500 shadow-sm p-2 rounded-md font-semibold text-xs flex items-center justify-center"
               onClick={() => {
                 storeCart({ id: id, price: price });
+                storePrice(price);
               }}
             >
               <svg

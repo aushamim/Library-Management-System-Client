@@ -36,6 +36,20 @@ const useFirebase = () => {
   // google auth
   const googleProvider = new GoogleAuthProvider();
 
+  // Cart Calculations
+  // const [totalPrice, setTotalPrice] = useState(0);
+
+  // Read Cart
+  const getPrice = () => {
+    const lsPrice = localStorage.getItem("price");
+    return lsPrice ? parseInt(JSON.parse(lsPrice)) : 0;
+  };
+  // Write Cart
+  const storePrice = (data) => {
+    const lsPrice = getPrice();
+    localStorage.setItem("price", JSON.stringify(lsPrice + data));
+  };
+
   // Refresh Handler
   const [refreshState, setRefreshState] = useState(true);
 
@@ -58,6 +72,7 @@ const useFirebase = () => {
   // Clear cart
   const clearCart = () => {
     localStorage.clear();
+    window.location.reload();
   };
 
   // register new user
@@ -264,6 +279,8 @@ const useFirebase = () => {
     storeCart,
     removeFromCart,
     clearCart,
+    getPrice,
+    storePrice,
   };
 };
 
