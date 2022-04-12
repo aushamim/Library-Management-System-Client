@@ -1,10 +1,10 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import Reply from "../Reply/Reply";
 import avatar from "./../../Media/default-avatar.png";
 
-const Thread = ({ userImg, displayName, time, postData, replies }) => {
-  // con data
+const Thread = ({ id, userImg, displayName, time, postData, replies }) => {
+  // convert data
   const handleDate = (time) => {
     const date = new Date(time);
     const hours = date.getHours();
@@ -19,6 +19,31 @@ const Thread = ({ userImg, displayName, time, postData, replies }) => {
   };
 
   const [reply, setReply] = useState(false);
+  // const [posts, setPosts] = useState([]);
+
+  // // get all posts data
+  // useEffect(() => {
+  //   fetch("http://localhost:5000/posts")
+  //     .then((res) => res.json())
+  //     .then((data) => setPosts(data));
+  // }, []);
+
+  // delete
+  const handleDelete = (id) => {
+    const url = `http://localhost:5000/posts/${id}`;
+    fetch(url, {
+      method: "DELETE",
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        const confirm = window.confirm("Do you Want to Delete?");
+        if (confirm) {
+          if (data.deletedCount > 0) {
+            alert("Post Removed");
+          }
+        }
+      });
+  };
 
   return (
     <div className="mb-10">
@@ -40,7 +65,10 @@ const Thread = ({ userImg, displayName, time, postData, replies }) => {
           </p>
         </div>
         <div className="flex justify-center items-center mr-3 group">
-          <button className="p-2 bg-red-50 group-hover:bg-red-100 rounded-full transition ease-in-out duration-500">
+          <button
+            className="p-2 bg-red-50 group-hover:bg-red-100 rounded-full transition ease-in-out duration-500"
+            onClick={() => handleDelete(id)}
+          >
             <svg
               xmlns="http://www.w3.org/2000/svg"
               className="icon icon-tabler icon-tabler-trash stroke-red-400 group-hover:stroke-red-600 transition ease-in-out duration-500"

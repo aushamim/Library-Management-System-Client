@@ -16,7 +16,7 @@ const Forum = () => {
     fetch("http://localhost:5000/posts")
       .then((res) => res.json())
       .then((data) => setPosts(data));
-  }, []);
+  }, [posts]);
 
   // // load specific user data
   // useEffect(() => {
@@ -49,6 +49,7 @@ const Forum = () => {
         {posts.map((singlePost) => (
           <Thread
             key={singlePost?._id}
+            id={singlePost?._id}
             userImg={singlePost?.userImg}
             displayName={singlePost?.displayName}
             time={singlePost?.time}
