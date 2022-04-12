@@ -7,40 +7,32 @@ import avatar from "./../../Media/default-avatar.png";
 
 const Forum = () => {
   const { dbUser, user } = useAuth();
-  // user state
-  // const [singleUser, setSingleUser] = useState([]);
+
   const [posts, setPosts] = useState([]);
 
   //load posts
   useEffect(() => {
-    fetch("http://localhost:5000/posts")
+    fetch("https://polar-lake-51656.herokuapp.com/posts")
       .then((res) => res.json())
       .then((data) => setPosts(data));
   }, [posts]);
 
-  // // load specific user data
-  // useEffect(() => {
-  //   fetch("http://localhost:5000/users")
-  //     .then((res) => res.json())
-  //     .then((data) => data.filter((x) => x.email === user.email))
-  //     .then((newData) => setSingleUser(newData[0]));
-  // }, [user.email]);
-
   // handle post data to DB
   const handlePost = (e) => {
     const postData = document.getElementById("post").value;
-    // const defaultImg = "https://i.ibb.co/QY1C1cN/default-avatar.png";
     const userImg = user?.photoURL;
     const time = new Date().getTime();
     const displayName = user.displayName;
     const replies = [];
     const finalData = { postData, userImg, time, displayName, replies };
 
-    axios.post("http://localhost:5000/posts", finalData).then((res) => {
-      if (res.data.insertedId) {
-        alert("Successfully Added post");
-      }
-    });
+    axios
+      .post("https://polar-lake-51656.herokuapp.com/posts", finalData)
+      .then((res) => {
+        if (res.data.insertedId) {
+          alert("Successfully Added post");
+        }
+      });
   };
 
   return (

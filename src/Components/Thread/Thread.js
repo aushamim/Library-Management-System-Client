@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import Reply from "../Reply/Reply";
 import avatar from "./../../Media/default-avatar.png";
@@ -22,7 +22,7 @@ const Thread = ({ id, userImg, displayName, time, postData, replies }) => {
 
   // delete
   const handleDelete = (id) => {
-    const url = `http://localhost:5000/posts/${id}`;
+    const url = `https://polar-lake-51656.herokuapp.com/posts/${id}`;
     fetch(url, {
       method: "DELETE",
     })

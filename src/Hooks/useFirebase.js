@@ -202,12 +202,12 @@ const useFirebase = () => {
       body: JSON.stringify(user),
     }).then();
   };
-  // // admin data load
-  // useEffect(() => {
-  //   fetch(`https://polar-lake-51656.herokuapp.com/users/${user.email}`)
-  //     .then((res) => res.json())
-  //     .then((data) => setAdmin(data.admin));
-  // }, [user.email]);
+  // admin data load
+  useEffect(() => {
+    fetch(`https://polar-lake-51656.herokuapp.com/users/${user.email}`)
+      .then((res) => res.json())
+      .then((data) => setAdmin(data.admin));
+  }, [user.email]);
 
   // books data load
   useEffect(() => {
@@ -221,7 +221,7 @@ const useFirebase = () => {
     fetch("https://polar-lake-51656.herokuapp.com/users")
       .then((res) => res.json())
       .then((data) => setDbUser(data));
-  }, []);
+  }, [dbUser]);
 
   return {
     registerUser,
