@@ -1,4 +1,5 @@
-import React from "react";
+import axios from "axios";
+import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import Thread from "../../Components/Thread/Thread";
 import useAuth from "../../Hooks/useAuth";
@@ -6,10 +7,55 @@ import avatar from "./../../Media/default-avatar.png";
 
 const Forum = () => {
   const { dbUser, user } = useAuth();
+  // user state
+  // const [singleUser, setSingleUser] = useState([]);
+  const [posts, setPosts] = useState([]);
+
+  //load posts
+  useEffect(() => {
+    fetch("http://localhost:5000/posts")
+      .then((res) => res.json())
+      .then((data) => setPosts(data));
+  }, []);
+
+  // // load specific user data
+  // useEffect(() => {
+  //   fetch("http://localhost:5000/users")
+  //     .then((res) => res.json())
+  //     .then((data) => data.filter((x) => x.email === user.email))
+  //     .then((newData) => setSingleUser(newData[0]));
+  // }, [user.email]);
+
+  // handle post data to DB
+  const handlePost = (e) => {
+    const postData = document.getElementById("post").value;
+    // const defaultImg = "https://i.ibb.co/QY1C1cN/default-avatar.png";
+    const userImg = user?.photoURL;
+    const time = new Date().getTime();
+    const displayName = user.displayName;
+    const replies = [];
+    const finalData = { postData, userImg, time, displayName, replies };
+
+    axios.post("http://localhost:5000/posts", finalData).then((res) => {
+      if (res.data.insertedId) {
+        alert("Successfully Added post");
+      }
+    });
+  };
+
   return (
     <div className="grid grid-cols-4 gap-8">
       <div className="col-span-2 overflow-y-scroll h-[90vh]">
-        <Thread></Thread>
+        {posts.map((singlePost) => (
+          <Thread
+            key={singlePost?._id}
+            userImg={singlePost?.userImg}
+            displayName={singlePost?.displayName}
+            time={singlePost?.time}
+            postData={singlePost?.postData}
+            replies={singlePost?.replies}
+          ></Thread>
+        ))}
       </div>
 
       <div className="">
@@ -66,7 +112,7 @@ const Forum = () => {
             <button
               className="bg-emerald-100 hover:bg-emerald-300 transition ease-in-out duration-500 shadow-sm p-2 rounded-md font-semibold text-xs flex items-center justify-center"
               onClick={() => {
-                console.log(document.getElementById("post").value);
+                handlePost();
                 document.getElementById("post").value = "";
               }}
             >

@@ -3,20 +3,41 @@ import { Link } from "react-router-dom";
 import Reply from "../Reply/Reply";
 import avatar from "./../../Media/default-avatar.png";
 
-const Thread = () => {
+const Thread = ({ userImg, displayName, time, postData, replies }) => {
+  // con data
+  const handleDate = (time) => {
+    const date = new Date(time);
+    const hours = date.getHours();
+    const minutes = date.getMinutes();
+    const ampm = hours >= 12 ? "pm" : "am";
+    const year = date.getFullYear();
+    const month = date.getMonth() + 1;
+    const day = date.getDate();
+    return `${
+      hours > 12 ? hours - 12 : hours
+    }:${minutes}${ampm} ${day}/${month}/${year}`;
+  };
+
   const [reply, setReply] = useState(false);
 
   return (
     <div className="mb-10">
       <div className="bg-white shadow-sm rounded-l-3xl rounded-r-md flex">
         <div className="w-16 border-4 border-[#f5f6fb] rounded-full mr-3">
-          <img src={avatar} alt="avatar" className="w-full" />
+          <img
+            src={userImg === "defaultAvatar" ? avatar : userImg}
+            alt="avatar"
+            className="w-full rounded-full"
+            referrerPolicy="no-referrer"
+          />
         </div>
         <div className="w-full">
           <Link to="/user/:id">
-            <p className="text-xl font-semibold text-gray-500">Shamim</p>
+            <p className="text-xl font-semibold text-gray-500">{displayName}</p>
           </Link>
-          <p className="text-xs font-semibold text-gray-400">01/04/2022</p>
+          <p className="text-xs font-semibold text-gray-400">
+            {handleDate(time)}
+          </p>
         </div>
         <div className="flex justify-center items-center mr-3 group">
           <button className="p-2 bg-red-50 group-hover:bg-red-100 rounded-full transition ease-in-out duration-500">
@@ -43,14 +64,7 @@ const Thread = () => {
         </div>
       </div>
       <div className="bg-white shadow-sm rounded-md my-2">
-        <div className="p-3">
-          Lorem ipsum dolor sit amet consectetur, adipisicing elit. Neque quia
-          non repellat quidem dignissimos aspernatur illo aperiam esse, fugit
-          expedita. Est harum fuga incidunt nam tempore? Nisi, quisquam
-          blanditiis! Consequuntur illo quasi, aliquam rem ex deserunt esse
-          earum laboriosam ullam quia ad perspiciatis voluptatum sit eligendi,
-          dolorem vitae magni praesentium.
-        </div>
+        <div className="p-3">{postData}</div>
         <div className="flex justify-end p-1">
           {/* Reply */}
           <button
