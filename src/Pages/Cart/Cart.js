@@ -3,8 +3,17 @@ import Books from "../../Components/Books/Books";
 import useAuth from "../../Hooks/useAuth";
 
 const Cart = () => {
-  const { books, getCart, clearCart, getPrice, clearPrice } = useAuth();
+  const {
+    books,
+    getCart,
+    clearCart,
+    getPrice,
+    clearPrice,
+    storeSales,
+    getSales,
+  } = useAuth();
   const totalPrice = getPrice();
+  const totalSales = getSales();
   const [cartItems, setCartItems] = useState([]);
   useEffect(() => {
     setCartItems(getCart);
@@ -24,6 +33,12 @@ const Cart = () => {
         cover={book[0]?.cover}
       ></Books>
     );
+  };
+
+  const storeSalesHandler = () => {
+    const items = cartItems.length;
+    const price = parseInt(document.getElementById("grandTotal").innerText);
+    storeSales(items, price);
   };
 
   return (
@@ -66,6 +81,7 @@ const Cart = () => {
           <button
             className="bg-blue-100 hover:bg-blue-300 transition ease-in-out duration-500 shadow-sm p-2 rounded-md font-semibold text-xs flex items-center justify-center w-full"
             onClick={() => {
+              storeSalesHandler();
               clearCart();
               clearPrice();
             }}
@@ -92,6 +108,23 @@ const Cart = () => {
               Proceed to Checkout
             </span>
           </button>
+        </div>
+
+        {/* Total Sales */}
+        <div className="bg-white p-5 rounded-md shadow-sm 2xl:w-3/4 mt-10">
+          <p className="text-xl font-semibold text-gray-500">Total Sales</p>
+          <hr className="my-3" />
+          <div className="grid grid-cols-2">
+            <p className="font-semibold text-gray-500 my-1">Total Sold Item</p>
+            <p className="text-right font-semibold my-1">
+              {totalSales[0].items}
+            </p>
+            <p className="font-semibold text-gray-500 my-1">Net Revenew</p>
+            <p className="text-right font-semibold my-1">
+              {totalSales[0].price}
+              <span className="font-extrabold text-sm">৳</span>
+            </p>
+          </div>
         </div>
       </div>
     </div>

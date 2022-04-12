@@ -37,14 +37,31 @@ const useFirebase = () => {
   const googleProvider = new GoogleAuthProvider();
 
   // Cart Calculations
-  // const [totalPrice, setTotalPrice] = useState(0);
+  // Read Sales
+  const getSales = () => {
+    const lsSales = localStorage.getItem("sales");
+    return lsSales
+      ? lsSales.length === 0
+        ? [{ items: 0, price: 0 }]
+        : JSON.parse(lsSales)
+      : [{ items: 0, price: 0 }];
+  };
+  // Write Sales
+  const storeSales = (items, price) => {
+    const lsSales = getSales();
+    console.log(lsSales);
+    const newLsSales = [
+      { items: lsSales[0].items + items, price: lsSales[0].price + price },
+    ];
+    localStorage.setItem("sales", JSON.stringify(newLsSales));
+  };
 
-  // Read Cart
+  // Read Price
   const getPrice = () => {
     const lsPrice = localStorage.getItem("price");
     return lsPrice ? parseInt(JSON.parse(lsPrice)) : 0;
   };
-  // Write Cart
+  // Write Price
   const storePrice = (data) => {
     const lsPrice = getPrice();
     localStorage.setItem("price", JSON.stringify(lsPrice + data));
@@ -296,6 +313,8 @@ const useFirebase = () => {
     storePrice,
     removePrice,
     clearPrice,
+    getSales,
+    storeSales,
   };
 };
 
