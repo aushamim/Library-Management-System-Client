@@ -19,14 +19,6 @@ const Thread = ({ id, userImg, displayName, time, postData, replies }) => {
   };
 
   const [reply, setReply] = useState(false);
-  // const [posts, setPosts] = useState([]);
-
-  // // get all posts data
-  // useEffect(() => {
-  //   fetch("http://localhost:5000/posts")
-  //     .then((res) => res.json())
-  //     .then((data) => setPosts(data));
-  // }, []);
 
   // delete
   const handleDelete = (id) => {
