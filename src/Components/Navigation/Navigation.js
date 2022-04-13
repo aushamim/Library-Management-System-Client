@@ -4,8 +4,7 @@ import useAuth from "../../Hooks/useAuth";
 
 const Navigation = () => {
   const { logout, user, dbUser } = useAuth();
-
-  const id = dbUser?.filter((x) => x.email === user?.email);
+  const sUser = dbUser.filter((x) => x.email === user?.email);
 
   return (
     <div className="p-5 text-center navigation">
@@ -47,7 +46,7 @@ const Navigation = () => {
       </Link>
 
       {/* Profile */}
-      <Link to={`/user/${id[0]?._id}`}>
+      <Link to={`/user/${sUser[0]?._id}`}>
         <div className="flex flex-col justify-center items-center my-5 p-2 group relative">
           <svg
             xmlns="http://www.w3.org/2000/svg"
@@ -118,54 +117,61 @@ const Navigation = () => {
       </Link>
 
       {/* Add Book */}
-      <Link to="/add">
-        <div className="flex flex-col justify-center items-center my-5 p-2 group relative">
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            className="icon icon-tabler icon-tabler-book"
-            width="32"
-            height="32"
-            viewBox="0 0 30 30"
-            strokeWidth="1.5"
-            stroke="#6b7280"
-            fill="none"
-            strokeLinecap="round"
-            strokeLinejoin="round"
-          >
-            <path stroke="none" d="M0 0h24v24H0z" fill="none" />
-            <path d="M3 19a9 9 0 0 1 9 0a9 9 0 0 1 9 0" />
-            <path d="M3 6a9 9 0 0 1 9 0a9 9 0 0 1 9 0" />
-            <line x1="3" y1="6" x2="3" y2="19" />
-            <line x1="12" y1="6" x2="12" y2="19" />
-            <line x1="21" y1="6" x2="21" y2="19" />
-            <line x1="27" y1="18" x2="27" y2="22" />
-            <line x1="25" y1="20" x2="30" y2="20" />
-          </svg>
-          <span className="nav-tooltip">Add New Book</span>
-        </div>
-      </Link>
+      {sUser[0]?.role === "admin" ? (
+        <>
+          <Link to="/add">
+            <div className="flex flex-col justify-center items-center my-5 p-2 group relative">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                className="icon icon-tabler icon-tabler-book"
+                width="32"
+                height="32"
+                viewBox="0 0 30 30"
+                strokeWidth="1.5"
+                stroke="#6b7280"
+                fill="none"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+              >
+                <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                <path d="M3 19a9 9 0 0 1 9 0a9 9 0 0 1 9 0" />
+                <path d="M3 6a9 9 0 0 1 9 0a9 9 0 0 1 9 0" />
+                <line x1="3" y1="6" x2="3" y2="19" />
+                <line x1="12" y1="6" x2="12" y2="19" />
+                <line x1="21" y1="6" x2="21" y2="19" />
+                <line x1="27" y1="18" x2="27" y2="22" />
+                <line x1="25" y1="20" x2="30" y2="20" />
+              </svg>
+              <span className="nav-tooltip">Add New Book</span>
+            </div>
+          </Link>
 
-      {/* Admin Panel */}
-      <Link to="/admin">
-        <div className="flex flex-col justify-center items-center my-5 p-2 group relative">
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            className="icon icon-tabler icon-tabler-shield"
-            width="32"
-            height="32"
-            viewBox="0 0 24 24"
-            strokeWidth="1.5"
-            stroke="#6b7280"
-            fill="none"
-            strokeLinecap="round"
-            strokeLinejoin="round"
-          >
-            <path stroke="none" d="M0 0h24v24H0z" fill="none" />
-            <path d="M12 3a12 12 0 0 0 8.5 3a12 12 0 0 1 -8.5 15a12 12 0 0 1 -8.5 -15a12 12 0 0 0 8.5 -3" />
-          </svg>
-          <span className="nav-tooltip">Admin Panel</span>
-        </div>
-      </Link>
+          {/* Admin Panel */}
+          <Link to="/admin">
+            <div className="flex flex-col justify-center items-center my-5 p-2 group relative">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                className="icon icon-tabler icon-tabler-shield"
+                width="32"
+                height="32"
+                viewBox="0 0 24 24"
+                strokeWidth="1.5"
+                stroke="#6b7280"
+                fill="none"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+              >
+                <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                <path d="M12 3a12 12 0 0 0 8.5 3a12 12 0 0 1 -8.5 15a12 12 0 0 1 -8.5 -15a12 12 0 0 0 8.5 -3" />
+              </svg>
+              <span className="nav-tooltip">Admin Panel</span>
+            </div>
+          </Link>
+        </>
+      ) : (
+        ""
+      )}
+
       {user.email ? (
         <>
           {/* Logout */}

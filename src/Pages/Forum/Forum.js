@@ -14,6 +14,7 @@ const Forum = () => {
   useEffect(() => {
     fetch("https://polar-lake-51656.herokuapp.com/posts")
       .then((res) => res.json())
+      .then((data) => data.sort((a, b) => b.time - a.time))
       .then((data) => setPosts(data));
   }, [posts]);
 

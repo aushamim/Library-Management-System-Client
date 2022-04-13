@@ -1,9 +1,13 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
+import useAuth from "../../Hooks/useAuth";
 import Reply from "../Reply/Reply";
 import avatar from "./../../Media/default-avatar.png";
 
 const Thread = ({ id, userImg, displayName, time, postData, replies }) => {
+  const { user, dbUser } = useAuth();
+  const sUser = dbUser.filter((x) => x.email === user?.email);
+
   // convert data
   const handleDate = (time) => {
     const date = new Date(time);
@@ -49,38 +53,46 @@ const Thread = ({ id, userImg, displayName, time, postData, replies }) => {
           />
         </div>
         <div className="w-full">
-          <Link to="/user/:id">
+          {/* <Link to="/user/:id">
             <p className="text-xl font-semibold text-gray-500">{displayName}</p>
-          </Link>
+          </Link> */}
+          <>
+            <p className="text-xl font-semibold text-gray-500">{displayName}</p>
+          </>
           <p className="text-xs font-semibold text-gray-400">
             {handleDate(time)}
           </p>
         </div>
         <div className="flex justify-center items-center mr-3 group">
-          <button
-            className="p-2 bg-red-50 group-hover:bg-red-100 rounded-full transition ease-in-out duration-500"
-            onClick={() => handleDelete(id)}
-          >
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              className="icon icon-tabler icon-tabler-trash stroke-red-400 group-hover:stroke-red-600 transition ease-in-out duration-500"
-              width="20"
-              height="20"
-              viewBox="0 0 24 24"
-              strokeWidth="2"
-              stroke="#6b7280"
-              fill="none"
-              strokeLinecap="round"
-              strokeLinejoin="round"
+          {/* Delete Button */}
+          {sUser[0]?.role === "admin" || displayName === user.displayName ? (
+            <button
+              className="p-2 bg-red-50 group-hover:bg-red-100 rounded-full transition ease-in-out duration-500"
+              onClick={() => handleDelete(id)}
             >
-              <path stroke="none" d="M0 0h24v24H0z" fill="none" />
-              <line x1="4" y1="7" x2="20" y2="7" />
-              <line x1="10" y1="11" x2="10" y2="17" />
-              <line x1="14" y1="11" x2="14" y2="17" />
-              <path d="M5 7l1 12a2 2 0 0 0 2 2h8a2 2 0 0 0 2 -2l1 -12" />
-              <path d="M9 7v-3a1 1 0 0 1 1 -1h4a1 1 0 0 1 1 1v3" />
-            </svg>
-          </button>
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                className="icon icon-tabler icon-tabler-trash stroke-red-400 group-hover:stroke-red-600 transition ease-in-out duration-500"
+                width="20"
+                height="20"
+                viewBox="0 0 24 24"
+                strokeWidth="2"
+                stroke="#6b7280"
+                fill="none"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+              >
+                <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                <line x1="4" y1="7" x2="20" y2="7" />
+                <line x1="10" y1="11" x2="10" y2="17" />
+                <line x1="14" y1="11" x2="14" y2="17" />
+                <path d="M5 7l1 12a2 2 0 0 0 2 2h8a2 2 0 0 0 2 -2l1 -12" />
+                <path d="M9 7v-3a1 1 0 0 1 1 -1h4a1 1 0 0 1 1 1v3" />
+              </svg>
+            </button>
+          ) : (
+            ""
+          )}
         </div>
       </div>
       <div className="bg-white shadow-sm rounded-md my-2">
@@ -133,10 +145,15 @@ const Thread = ({ id, userImg, displayName, time, postData, replies }) => {
         </div>
       </div>
       {reply ? (
-        <div className="mt-2 mx-3">
-          <Reply></Reply>
-          <p className="text-center">No reply yet ... U_U</p>
-        </div>
+        replies.length === 0 ? (
+          <div className="mt-2 mx-3">
+            <p className="text-center">No replies yet ... U_U</p>
+          </div>
+        ) : (
+          <div className="mt-2 mx-3">
+            <Reply></Reply>
+          </div>
+        )
       ) : (
         ""
       )}

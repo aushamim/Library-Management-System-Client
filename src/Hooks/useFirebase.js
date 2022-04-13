@@ -74,13 +74,6 @@ const useFirebase = () => {
     localStorage.setItem("price", JSON.stringify(0));
   };
 
-  // Refresh Handler
-  const [refreshState, setRefreshState] = useState(true);
-
-  const refresh = () => {
-    refreshState ? setRefreshState(false) : setRefreshState(true);
-  };
-
   // Read Cart
   const getCart = () => {
     const lsCart = localStorage.getItem("cartItems");
@@ -271,19 +264,13 @@ const useFirebase = () => {
       body: JSON.stringify(user),
     }).then();
   };
-  // admin data load
-  useEffect(() => {
-    fetch(`https://polar-lake-51656.herokuapp.com/users/${user.email}`)
-      .then((res) => res.json())
-      .then((data) => setAdmin(data.admin));
-  }, [user.email]);
 
   // books data load
   useEffect(() => {
     fetch("https://polar-lake-51656.herokuapp.com/books")
       .then((res) => res.json())
       .then((data) => setBooks(data));
-  }, []);
+  }, [books]);
 
   // users data load
   useEffect(() => {
@@ -303,8 +290,6 @@ const useFirebase = () => {
     admin,
     books,
     dbUser,
-    refreshState,
-    refresh,
     getCart,
     storeCart,
     removeFromCart,
