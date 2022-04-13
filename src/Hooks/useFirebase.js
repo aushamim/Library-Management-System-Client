@@ -36,6 +36,68 @@ const useFirebase = () => {
   // google auth
   const googleProvider = new GoogleAuthProvider();
 
+  // Cart Calculations
+  // Read Sales
+  const getSales = () => {
+    const lsSales = localStorage.getItem("sales");
+    return lsSales
+      ? lsSales.length === 0
+        ? [{ items: 0, price: 0 }]
+        : JSON.parse(lsSales)
+      : [{ items: 0, price: 0 }];
+  };
+  // Write Sales
+  const storeSales = (items, price) => {
+    const lsSales = getSales();
+    console.log(lsSales);
+    const newLsSales = [
+      { items: lsSales[0].items + items, price: lsSales[0].price + price },
+    ];
+    localStorage.setItem("sales", JSON.stringify(newLsSales));
+  };
+
+  // Read Price
+  const getPrice = () => {
+    const lsPrice = localStorage.getItem("price");
+    return lsPrice ? parseInt(JSON.parse(lsPrice)) : 0;
+  };
+  // Write Price
+  const storePrice = (data) => {
+    const lsPrice = getPrice();
+    localStorage.setItem("price", JSON.stringify(lsPrice + data));
+  };
+  const removePrice = (data) => {
+    const lsPrice = getPrice();
+    localStorage.setItem("price", JSON.stringify(lsPrice - data));
+  };
+  const clearPrice = (data) => {
+    localStorage.setItem("price", JSON.stringify(0));
+  };
+
+  // Read Cart
+  const getCart = () => {
+    const lsCart = localStorage.getItem("cartItems");
+    return lsCart ? JSON.parse(lsCart) : [];
+  };
+  // Write Cart
+  const storeCart = (data) => {
+    const lsCart = getCart();
+    localStorage.setItem("cartItems", JSON.stringify([...lsCart, data]));
+  };
+  // Remove from cart
+  const removeFromCart = (id) => {
+    const lsCart = getCart();
+    const index = lsCart.findIndex((x) => x.id === id);
+    lsCart.splice(index, 1);
+    localStorage.setItem("cartItems", JSON.stringify(lsCart));
+    window.location.reload();
+  };
+  // Clear cart
+  const clearCart = () => {
+    localStorage.setItem("cartItems", JSON.stringify([]));
+    window.location.reload();
+  };
+
   // register new user
   const registerUser = (
     email,
@@ -202,19 +264,13 @@ const useFirebase = () => {
       body: JSON.stringify(user),
     }).then();
   };
-  // admin data load
-  useEffect(() => {
-    fetch(`https://polar-lake-51656.herokuapp.com/users/${user.email}`)
-      .then((res) => res.json())
-      .then((data) => setAdmin(data.admin));
-  }, [user.email]);
 
   // books data load
   useEffect(() => {
     fetch("https://polar-lake-51656.herokuapp.com/books")
       .then((res) => res.json())
       .then((data) => setBooks(data));
-  }, []);
+  }, [books]);
 
   // users data load
   useEffect(() => {
@@ -234,6 +290,16 @@ const useFirebase = () => {
     admin,
     books,
     dbUser,
+    getCart,
+    storeCart,
+    removeFromCart,
+    clearCart,
+    getPrice,
+    storePrice,
+    removePrice,
+    clearPrice,
+    getSales,
+    storeSales,
   };
 };
 
