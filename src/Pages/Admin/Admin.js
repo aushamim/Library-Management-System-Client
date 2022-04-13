@@ -1,6 +1,79 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
+import useAuth from "../../Hooks/useAuth";
 
 const Admin = () => {
+  const { dbUser } = useAuth();
+
+  // books data state
+  const [booksData, setBooksData] = useState([]);
+
+  // get books data
+  useEffect(() => {
+    fetch("https://polar-lake-51656.herokuapp.com/books")
+      .then((res) => res.json())
+      .then((data) => setBooksData(data));
+  }, [booksData]);
+
+  // make admin
+  const handleMakeAdmin = (email) => {
+    const confirm = window.confirm(`Do you want to Make ${email} as a Admin`);
+    if (confirm) {
+      const user = { email };
+      fetch("https://polar-lake-51656.herokuapp.com/users/admin", {
+        method: "PUT",
+        headers: { "content-type": "application/json" },
+        body: JSON.stringify(user),
+      })
+        .then((res) => res.json())
+        .then((data) => {
+          if (data.modifiedCount > 0) {
+            alert("Admin Added");
+          } else {
+            alert(`${email} is Already an Admin`);
+          }
+        });
+    }
+  };
+
+  // change admin to user
+  const handleChangeAdmin = (email) => {
+    const confirm = window.confirm(`Do you want to Remove ${email} from Admin`);
+    if (confirm) {
+      const user = { email };
+      fetch("https://polar-lake-51656.herokuapp.com/users/makeUser", {
+        method: "PUT",
+        headers: { "content-type": "application/json" },
+        body: JSON.stringify(user),
+      })
+        .then((res) => res.json())
+        .then((data) => {
+          if (data.modifiedCount > 0) {
+            alert("Admin Removed");
+          } else {
+            alert(`${email} is Already an Admin`);
+          }
+        });
+    }
+  };
+
+  // delete a book
+  const handleBookDelete = (id) => {
+    const url = `https://polar-lake-51656.herokuapp.com/books/${id}`;
+
+    fetch(url, {
+      method: "DELETE",
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        const confirm = window.confirm("Do you Want to Delete?");
+        if (confirm) {
+          if (data.deletedCount > 0) {
+            alert("Book Removed");
+          }
+        }
+      });
+  };
+
   return (
     <div className="grid grid-cols-1 2xl:grid-cols-2 gap-10">
       {/* UserTable */}
@@ -59,28 +132,43 @@ const Admin = () => {
                     </tr>
                   </thead>
                   <tbody>
-                    <tr className="bg-white border-b">
-                      <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900 font-mono">
-                        asdfghjklo
-                      </td>
-                      <td className="text-sm text-gray-900 px-6 py-4 whitespace-nowrap">
-                        Ashikul Islam
-                      </td>
-                      <td className="text-sm text-gray-900 px-6 py-4 whitespace-nowrap">
-                        ai.nayeem@gmail.com
-                      </td>
-                      <td className="text-sm text-gray-900 px-6 py-4 whitespace-nowrap">
-                        user
-                      </td>
-                      <td className="text-sm text-gray-900 px-6 py-4 whitespace-nowrap flex items-center justify-center">
-                        <button className="bg-emerald-100 hover:bg-emerald-300 transition ease-in-out duration-500 shadow-sm p-2 rounded-md font-semibold">
-                          Promote
-                        </button>
-                        <button className="bg-red-100 hover:bg-red-300 transition ease-in-out duration-500 shadow-sm p-2 rounded-md font-semibold">
-                          Demote
-                        </button>
-                      </td>
-                    </tr>
+                    {dbUser.map((singleUser) => (
+                      <tr key={singleUser?._id} className="bg-white border-b">
+                        <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900 font-mono">
+                          {singleUser?._id}
+                        </td>
+                        <td className="text-sm text-gray-900 px-6 py-4 whitespace-nowrap">
+                          {singleUser?.displayName}
+                        </td>
+                        <td className="text-sm text-gray-900 px-6 py-4 whitespace-nowrap">
+                          {singleUser?.email}
+                        </td>
+                        <td className="text-sm text-gray-900 px-6 py-4 whitespace-nowrap">
+                          {singleUser?.role}
+                        </td>
+                        <td className="text-sm text-gray-900 px-6 py-4 whitespace-nowrap flex items-center justify-center">
+                          {singleUser?.role === "admin" ? (
+                            <button
+                              className="bg-red-100 hover:bg-red-300 transition ease-in-out duration-500 shadow-sm p-2 rounded-md font-semibold"
+                              onClick={() => {
+                                handleChangeAdmin(singleUser?.email);
+                              }}
+                            >
+                              Demote
+                            </button>
+                          ) : (
+                            <button
+                              className="bg-emerald-100 hover:bg-emerald-300 transition ease-in-out duration-500 shadow-sm p-2 rounded-md font-semibold"
+                              onClick={() => {
+                                handleMakeAdmin(singleUser?.email);
+                              }}
+                            >
+                              Promote
+                            </button>
+                          )}
+                        </td>
+                      </tr>
+                    ))}
                   </tbody>
                 </table>
               </div>
@@ -139,22 +227,29 @@ const Admin = () => {
                     </tr>
                   </thead>
                   <tbody>
-                    <tr className="bg-white border-b">
-                      <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900 font-mono">
-                        asdfghjklo
-                      </td>
-                      <td className="text-sm text-gray-900 px-6 py-4 whitespace-nowrap">
-                        Ashikul Islam
-                      </td>
-                      <td className="text-sm text-gray-900 px-6 py-4 whitespace-nowrap">
-                        ai.nayeem@gmail.com
-                      </td>
-                      <td className="text-sm text-gray-900 px-6 py-4 whitespace-nowrap flex items-center justify-center">
-                        <button className="bg-red-100 hover:bg-red-300 transition ease-in-out duration-500 shadow-sm p-2 rounded-md font-semibold">
-                          Delete
-                        </button>
-                      </td>
-                    </tr>
+                    {booksData.map((singleBook) => (
+                      <tr key={singleBook?._id} className="bg-white border-b">
+                        <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900 font-mono">
+                          {singleBook?._id}
+                        </td>
+                        <td className="text-sm text-gray-900 px-6 py-4 whitespace-nowrap">
+                          {singleBook?.title}
+                        </td>
+                        <td className="text-sm text-gray-900 px-6 py-4 whitespace-nowrap">
+                          {singleBook?.author}
+                        </td>
+                        <td className="text-sm text-gray-900 px-6 py-4 whitespace-nowrap flex items-center justify-center">
+                          <button
+                            className="bg-red-100 hover:bg-red-300 transition ease-in-out duration-500 shadow-sm p-2 rounded-md font-semibold"
+                            onClick={() => {
+                              handleBookDelete(singleBook?._id);
+                            }}
+                          >
+                            Delete
+                          </button>
+                        </td>
+                      </tr>
+                    ))}
                   </tbody>
                 </table>
               </div>
