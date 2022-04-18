@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import useAuth from "../../Hooks/useAuth";
 import Reply from "../Reply/Reply";
+import ReplyField from "../Reply/ReplyField";
 import avatar from "./../../Media/default-avatar.png";
 
 const Thread = ({ id, userImg, displayName, time, postData, replies }) => {
@@ -145,13 +146,14 @@ const Thread = ({ id, userImg, displayName, time, postData, replies }) => {
         </div>
       </div>
       {reply ? (
-        replies.length === 0 ? (
+        replies.length !== 0 ? (
           <div className="mt-2 mx-3">
             <p className="text-center">No replies yet ... U_U</p>
           </div>
         ) : (
           <div className="mt-2 mx-3">
             <Reply></Reply>
+            <ReplyField></ReplyField>
           </div>
         )
       ) : (
