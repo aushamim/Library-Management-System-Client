@@ -16,7 +16,7 @@ const Forum = () => {
       .then((res) => res.json())
       .then((data) => data.sort((a, b) => b.time - a.time))
       .then((data) => setPosts(data));
-  }, [posts]);
+  }, []);
 
   // handle post data to DB
   const handlePost = (e) => {
@@ -32,6 +32,7 @@ const Forum = () => {
       .then((res) => {
         if (res.data.insertedId) {
           alert("Successfully Added post");
+          window.location.reload();
         }
       });
   };
