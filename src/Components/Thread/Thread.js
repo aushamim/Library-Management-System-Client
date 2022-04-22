@@ -37,6 +37,7 @@ const Thread = ({ id, userImg, displayName, time, postData, replies }) => {
         if (confirm) {
           if (data.deletedCount > 0) {
             alert("Post Removed");
+            window.location.reload();
           }
         }
       });

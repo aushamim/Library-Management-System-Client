@@ -270,14 +270,14 @@ const useFirebase = () => {
     fetch("https://polar-lake-51656.herokuapp.com/books")
       .then((res) => res.json())
       .then((data) => setBooks(data));
-  }, [books]);
+  }, []);
 
   // users data load
   useEffect(() => {
     fetch("https://polar-lake-51656.herokuapp.com/users")
       .then((res) => res.json())
       .then((data) => setDbUser(data));
-  }, [dbUser]);
+  }, []);
 
   return {
     registerUser,
