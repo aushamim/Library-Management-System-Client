@@ -12,7 +12,7 @@ const Admin = () => {
     fetch("https://polar-lake-51656.herokuapp.com/books")
       .then((res) => res.json())
       .then((data) => setBooksData(data));
-  }, [booksData]);
+  }, []);
 
   // make admin
   const handleMakeAdmin = (email) => {
