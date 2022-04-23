@@ -24,8 +24,6 @@ const useFirebase = () => {
   const [isLoading, setIsLoading] = useState(true);
   // error state
   const [authError, setAuthError] = useState("");
-  //declare admin
-  const [admin, setAdmin] = useState("false");
 
   //declare books
   const [books, setBooks] = useState([]);
@@ -287,7 +285,7 @@ const useFirebase = () => {
     logout,
     user,
     isLoading,
-    admin,
+
     books,
     dbUser,
     getCart,
