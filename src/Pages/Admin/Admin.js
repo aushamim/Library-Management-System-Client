@@ -28,6 +28,7 @@ const Admin = () => {
         .then((data) => {
           if (data.modifiedCount > 0) {
             alert("Admin Added");
+            window.location.reload();
           } else {
             alert(`${email} is Already an Admin`);
           }
@@ -49,6 +50,7 @@ const Admin = () => {
         .then((data) => {
           if (data.modifiedCount > 0) {
             alert("Admin Removed");
+            window.location.reload();
           } else {
             alert(`${email} is Already an Admin`);
           }
@@ -69,6 +71,7 @@ const Admin = () => {
         if (confirm) {
           if (data.deletedCount > 0) {
             alert("Book Removed");
+            window.location.reload();
           }
         }
       });
