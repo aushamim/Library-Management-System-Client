@@ -10,11 +10,31 @@ import { useParams } from "react-router-dom";
 
 const Profile = () => {
   const { id } = useParams();
-  const { dbUser } = useAuth();
-
+  const { dbUser, books } = useAuth();
   const singleUser = dbUser.filter((x) => x._id === id);
 
-  // convt date
+  const boughtComponentHandler = (id) => {
+    const book = books.filter((x) => x._id === id);
+    return (
+      <div
+        className="mr-5"
+        key={Math.floor(Math.random() * (99999999 - 10000000)) + 10000000}
+      >
+        <Books
+          key={Math.floor(Math.random() * (99999999 - 10000000)) + 10000000}
+          id={book[0]?._id}
+          title={book[0]?.title}
+          author={book[0]?.author}
+          date={book[0]?.date}
+          publisher={book[0]?.publisher}
+          price={book[0]?.price}
+          cover={book[0]?.cover}
+        ></Books>
+      </div>
+    );
+  };
+
+  // convert date
   const handleDate = (time) => {
     const months = [
       "Jan",
@@ -133,7 +153,7 @@ const Profile = () => {
               <img src={wish} alt="Wishlist" className="w-1/2" />
             </div>
             <div className="col-span-2 text-center uppercase text-2xl text-orange-600">
-              <p className="font-bold">{singleUser[0]?.planning.length}</p>
+              <p className="font-bold">{singleUser[0]?.planning?.length}</p>
               <p className="font-semibold text-sm mt-1">Planning</p>
             </div>
           </div>
@@ -142,7 +162,7 @@ const Profile = () => {
               <img src={finished} alt="Finished reading" className="w-1/2" />
             </div>
             <div className="col-span-2 text-center uppercase text-2xl text-blue-600">
-              <p className="font-bold">{singleUser[0]?.finished.length}</p>
+              <p className="font-bold">{singleUser[0]?.bought?.length}</p>
               <p className="font-semibold text-sm mt-1">Finished</p>
             </div>
           </div>
@@ -151,7 +171,7 @@ const Profile = () => {
               <img src={reading} alt="Wishlist" className="w-1/2" />
             </div>
             <div className="col-span-2 text-center uppercase text-2xl text-teal-600">
-              <p className="font-bold">{singleUser[0]?.reading.length}</p>
+              <p className="font-bold">{singleUser[0]?.planning.length}</p>
               <p className="font-semibold text-sm mt-1">Reading</p>
             </div>
           </div>
@@ -160,7 +180,7 @@ const Profile = () => {
               <img src={coins} alt="Bought Books" className="w-1/2" />
             </div>
             <div className="col-span-2 text-center uppercase text-2xl text-violet-600">
-              <p className="font-bold">{singleUser[0]?.bought.length}</p>
+              <p className="font-bold">{singleUser[0]?.bought?.length}</p>
               <p className="font-semibold text-sm mt-1">Bought</p>
             </div>
           </div>
@@ -173,15 +193,20 @@ const Profile = () => {
               • Plannig to Read
             </p>
             <div className="horizontal-scroll-fix flex overflow-x-scroll mt-5">
-              <div className="mr-5">
-                <Books></Books>
-              </div>
-              <div className="mr-5">
-                <Books></Books>
-              </div>
-              <div className="mr-5">
-                <Books></Books>
-              </div>
+              {singleUser[0]?.planning.map((book) => (
+                <div className="mr-5" key={book?._id}>
+                  <Books
+                    key={book?._id}
+                    id={book?._id}
+                    title={book?.title}
+                    author={book?.author}
+                    date={book?.date}
+                    publisher={book?.publisher}
+                    price={book?.price}
+                    cover={book?.cover}
+                  ></Books>
+                </div>
+              ))}
             </div>
           </div>
 
@@ -189,15 +214,9 @@ const Profile = () => {
           <div className="mt-5">
             <p className="font-semibold text-2xl text-gray-500">• Finished</p>
             <div className="horizontal-scroll-fix flex overflow-x-scroll mt-5">
-              <div className="mr-5">
-                <Books></Books>
-              </div>
-              <div className="mr-5">
-                <Books></Books>
-              </div>
-              <div className="mr-5">
-                <Books></Books>
-              </div>
+              {singleUser[0]?.bought.map((book) =>
+                boughtComponentHandler(book?.id)
+              )}
             </div>
           </div>
 
@@ -205,15 +224,20 @@ const Profile = () => {
           <div className="mt-5">
             <p className="font-semibold text-2xl text-gray-500">• Reading</p>
             <div className="horizontal-scroll-fix flex overflow-x-scroll mt-5">
-              <div className="mr-5">
-                <Books></Books>
-              </div>
-              <div className="mr-5">
-                <Books></Books>
-              </div>
-              <div className="mr-5">
-                <Books></Books>
-              </div>
+              {singleUser[0]?.planning.map((book) => (
+                <div className="mr-5" key={book?._id}>
+                  <Books
+                    key={book?._id}
+                    id={book?._id}
+                    title={book?.title}
+                    author={book?.author}
+                    date={book?.date}
+                    publisher={book?.publisher}
+                    price={book?.price}
+                    cover={book?.cover}
+                  ></Books>
+                </div>
+              ))}
             </div>
           </div>
 
@@ -223,15 +247,9 @@ const Profile = () => {
               • Recently Bought
             </p>
             <div className="horizontal-scroll-fix flex overflow-x-scroll mt-5">
-              <div className="mr-5">
-                <Books></Books>
-              </div>
-              <div className="mr-5">
-                <Books></Books>
-              </div>
-              <div className="mr-5">
-                <Books></Books>
-              </div>
+              {singleUser[0]?.bought.map((book) =>
+                boughtComponentHandler(book?.id)
+              )}
             </div>
           </div>
         </div>

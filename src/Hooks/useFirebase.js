@@ -47,7 +47,6 @@ const useFirebase = () => {
   // Write Sales
   const storeSales = (items, price) => {
     const lsSales = getSales();
-    console.log(lsSales);
     const newLsSales = [
       { items: lsSales[0].items + items, price: lsSales[0].price + price },
     ];

@@ -11,7 +11,15 @@ const Cart = () => {
     clearPrice,
     storeSales,
     getSales,
+    user,
+    dbUser,
   } = useAuth();
+
+  // load single user
+  const singleUser = dbUser.filter((x) => x?.email === user?.email);
+  // get the old purchased book list from the user
+  const oldBoughtData = singleUser[0]?.bought;
+
   const totalPrice = getPrice();
   const totalSales = getSales();
   const [cartItems, setCartItems] = useState([]);
@@ -39,6 +47,25 @@ const Cart = () => {
     const items = cartItems.length;
     const price = parseInt(document.getElementById("grandTotal").innerText);
     storeSales(items, price);
+  };
+
+  const handleAddCardToDb = (cart) => {
+    const newData = [...oldBoughtData, ...cart];
+
+    const allData = { cart: newData, userEmail: user?.email };
+    fetch("http://localhost:5000/users/bought", {
+      method: "PUT",
+      headers: { "content-type": "application/json" },
+      body: JSON.stringify(allData),
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        if (data.modifiedCount > 0) {
+          alert("Thank You For your Order");
+          clearCart();
+          clearPrice();
+        }
+      });
   };
 
   return (
@@ -82,8 +109,7 @@ const Cart = () => {
             className="bg-blue-100 hover:bg-blue-300 transition ease-in-out duration-500 shadow-sm p-2 rounded-md font-semibold text-xs flex items-center justify-center w-full"
             onClick={() => {
               storeSalesHandler();
-              clearCart();
-              clearPrice();
+              handleAddCardToDb(cartItems);
             }}
           >
             <svg

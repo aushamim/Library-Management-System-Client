@@ -6,7 +6,8 @@ import defaultCover from "./../../Media/default-cover.jpg";
 const Books = ({ id, title, author, date, publisher, price, cover }) => {
   const pathArray = window.location.pathname.split("/");
 
-  const { storeCart, removeFromCart, storePrice, removePrice } = useAuth();
+  const { storeCart, removeFromCart, storePrice, removePrice, user } =
+    useAuth();
 
   return (
     <div className="bg-white rounded-md shadow flex h-max">
@@ -41,7 +42,32 @@ const Books = ({ id, title, author, date, publisher, price, cover }) => {
         >
           {pathArray[1] === "" ? (
             // WishList Button
-            <button className="bg-orange-100 hover:bg-orange-300 transition ease-in-out duration-500 shadow-sm p-2 rounded-md flex items-center justify-center">
+            <button
+              onClick={() => {
+                const userEmail = user?.email;
+                const bookData = {
+                  title,
+                  author,
+                  date,
+                  publisher,
+                  price,
+                  cover,
+                  userEmail,
+                };
+                fetch("http://localhost:5000/users/wishlist", {
+                  method: "PUT",
+                  headers: { "content-type": "application/json" },
+                  body: JSON.stringify(bookData),
+                })
+                  .then((res) => res.json())
+                  .then((data) => {
+                    if (data.modifiedCount > 0) {
+                      window.location.reload();
+                    }
+                  });
+              }}
+              className="bg-orange-100 hover:bg-orange-300 transition ease-in-out duration-500 shadow-sm p-2 rounded-md flex items-center justify-center"
+            >
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 className="icon icon-tabler icon-tabler-bookmark"
