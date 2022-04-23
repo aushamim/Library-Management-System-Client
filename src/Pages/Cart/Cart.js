@@ -111,7 +111,7 @@ const Cart = () => {
         </div>
 
         {/* Total Sales */}
-        <div className="bg-white p-5 rounded-md shadow-sm 2xl:w-3/4 mt-10">
+        <div className=" hidden bg-white p-5 rounded-md shadow-sm 2xl:w-3/4 mt-10">
           <p className="text-xl font-semibold text-gray-500">Total Sales</p>
           <hr className="my-3" />
           <div className="grid grid-cols-2">
