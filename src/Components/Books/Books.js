@@ -54,7 +54,7 @@ const Books = ({ id, title, author, date, publisher, price, cover }) => {
                   cover,
                   userEmail,
                 };
-                fetch("http://localhost:5000/users/wishlist", {
+                fetch("https://polar-lake-51656.herokuapp.com/users/wishlist", {
                   method: "PUT",
                   headers: { "content-type": "application/json" },
                   body: JSON.stringify(bookData),

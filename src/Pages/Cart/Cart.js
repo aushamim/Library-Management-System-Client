@@ -53,7 +53,7 @@ const Cart = () => {
     const newData = [...oldBoughtData, ...cart];
 
     const allData = { cart: newData, userEmail: user?.email };
-    fetch("http://localhost:5000/users/bought", {
+    fetch("https://polar-lake-51656.herokuapp.com/users/bought", {
       method: "PUT",
       headers: { "content-type": "application/json" },
       body: JSON.stringify(allData),
